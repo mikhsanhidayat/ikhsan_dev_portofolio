@@ -1,0 +1,12 @@
+[25-Aug-2026 16:01:12 UTC] PHP Fatal error:  Uncaught Error: Unknown named parameter $id in D:\MY_PROJECT\porto_ikhsan\app\Core\Router.php:116
+Stack trace:
+#0 D:\MY_PROJECT\porto_ikhsan\app\Core\Router.php(116): call_user_func_array(Array, Array)
+#1 D:\MY_PROJECT\porto_ikhsan\public\index.php(84): App\Core\Router->dispatch('/admin/projects...', 'GET')
+#2 {main}
+  thrown in D:\MY_PROJECT\porto_ikhsan\app\Core\Router.php on line 116
+[25-Aug-2026 16:01:18 UTC] PHP Fatal error:  Uncaught Error: Unknown named parameter $id in D:\MY_PROJECT\porto_ikhsan\app\Core\Router.php:116
+Stack trace:
+#0 D:\MY_PROJECT\porto_ikhsan\app\Core\Router.php(116): call_user_func_array(Array, Array)
+#1 D:\MY_PROJECT\porto_ikhsan\public\index.php(84): App\Core\Router->dispatch('/admin/projects...', 'GET')
+#2 {main}
+  thrown in D:\MY_PROJECT\porto_ikhsan\app\Core\Router.php on line 116

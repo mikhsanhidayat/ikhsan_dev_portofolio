@@ -1,0 +1,20 @@
+{
+    "name": "porto/ikhsan",
+    "description": "Portofolio Mahasiswa D3 Manajemen Informatika",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "vlucas/phpdotenv": "^5.6",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}
