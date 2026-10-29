@@ -1,0 +1,65 @@
+
+name: Deploy Portfolio
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, dom, pdo_mysql, fileinfo
+          tools: composer:v2
+          coverage: none
+
+      - name: Install production dependencies
+        run: |
+          composer validate --no-check-publish
+          composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader
+
+      - name: Prepare SSH
+        env:
+          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$VPS_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Deploy to VPS
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          rsync -az --delete \
+            --chmod=Du=rwx,Dg=rx,Do=,Fu=rw,Fg=r,Fo= \
+            --exclude='/.git/' \
+            --exclude='/.github/' \
+            --exclude='/.env' \
+            --exclude='/public/uploads/***' \
+            --exclude='/storage/logs/***' \
+            --exclude='/storage/rate_limit.json' \
+            -e "ssh -i $HOME/.ssh/deploy_key -p $VPS_PORT -o StrictHostKeyChecking=yes" \
+            ./ "$VPS_USER@$VPS_HOST:/var/www/portfolio/"
+
+            
