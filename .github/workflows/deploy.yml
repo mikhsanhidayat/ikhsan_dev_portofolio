@@ -31,10 +31,13 @@ jobs:
       - name: Install production dependencies
         run: |
           composer validate --no-check-publish
-          composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader
+          composer install \
+            --no-dev \
+            --prefer-dist \
+            --no-interaction \
+            --no-progress \
+            --optimize-autoloader
 
-      
-     
       - name: Prepare SSH
         env:
           SSH_KEY_BASE64: ${{ secrets.VPS_SSH_KEY_BASE64 }}
@@ -43,14 +46,16 @@ jobs:
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
 
-          printf '%s' "$SSH_KEY_BASE64" | base64 --decode > ~/.ssh/deploy_key
+          printf '%s' "$SSH_KEY_BASE64" \
+            | base64 --decode > ~/.ssh/deploy_key
+
           chmod 600 ~/.ssh/deploy_key
 
           printf '%s\n' "$VPS_KNOWN_HOSTS" > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
 
-          ssh-keygen -y -P "" -f ~/.ssh/deploy_key > /dev/null
-
+          ssh-keygen -y -P "" \
+            -f ~/.ssh/deploy_key > /dev/null
 
       - name: Deploy to VPS
         env:
@@ -59,14 +64,12 @@ jobs:
           VPS_USER: ${{ secrets.VPS_USER }}
         run: |
           rsync -az --delete \
-            --chmod=Du=rwx,Dg=rx,Do=,Fu=rw,Fg=r,Fo= \
+            --no-owner --no-group \
+            --chmod=Du=rwx,Dg=rx,Dg+s,Do=,Fu=rw,Fg=r,Fo= \
             --exclude='/.git/' \
             --exclude='/.github/' \
             --exclude='/.env' \
             --exclude='/public/uploads/***' \
-            --exclude='/storage/logs/***' \
-            --exclude='/storage/rate_limit.json' \
+            --exclude='/storage/***' \
             -e "ssh -i $HOME/.ssh/deploy_key -p $VPS_PORT -o StrictHostKeyChecking=yes" \
             ./ "$VPS_USER@$VPS_HOST:/var/www/portfolio/"
-
-
