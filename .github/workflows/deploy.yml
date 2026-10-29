@@ -34,21 +34,21 @@ jobs:
           composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
       
+     
       - name: Prepare SSH
         env:
-          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          SSH_KEY_BASE64: ${{ secrets.VPS_SSH_KEY_BASE64 }}
           VPS_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
 
-          printf '%s\n' "$SSH_KEY" | tr -d '\r' > ~/.ssh/deploy_key
+          printf '%s' "$SSH_KEY_BASE64" | base64 --decode > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
 
           printf '%s\n' "$VPS_KNOWN_HOSTS" > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
 
-          # Validate private key without exposing its contents
           ssh-keygen -y -P "" -f ~/.ssh/deploy_key > /dev/null
 
 
