@@ -3,14 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= e($title ?? 'Portofolio Mahasiswa') ?></title>
-    <meta name="description" content="<?= e($settings['meta_description'] ?? 'Website portofolio resmi M. Ikhsanul Karim, mahasiswa D3 Manajemen Informatika.') ?>">
+    <title><?= e($title ?? 'M. Ikhsan Hidayat — Fullstack Developer') ?></title>
+    <meta name="description" content="<?= e($settings['meta_description'] ?? 'Website portofolio resmi M. Ikhsan Hidayat, Fullstack Developer.') ?>">
     
-    <!-- Fonts: Inter & Outfit -->
+    <!-- Google Fonts: Space Grotesk, Fraunces (Retro Serif), JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=JetBrains+Mono:ital,wght@0,400..800;1,400..800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     
+    <!-- Phosphor Icons: Script & CSS Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Lucide Icons CDN (Fallback support) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -18,114 +27,338 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Outfit', 'sans-serif'],
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        serif: ['Fraunces', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
+                        retro: {
+                            bg: 'var(--bg-color)',
+                            card: 'var(--card-color)',
+                            text: 'var(--text-color)',
+                            accent: 'var(--accent-color)',
+                            secondary: 'var(--secondary-color)',
+                            border: 'var(--border-color)'
                         }
                     }
                 }
             }
         }
     </script>
-    
-    <!-- Lucide Icons CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- GLightbox CDN (only loaded when needed, but we can put it in header to be safe) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
-    
     <style>
-        .active-nav-link {
-            color: #2563eb;
+        :root {
+            --bg-color: #F4EFE6;
+            --card-color: #FFFDF9;
+            --text-color: #1C1B18;
+            --accent-color: #FF5A36;
+            --secondary-color: #E6DEC8;
+            --border-color: #1C1B18;
+        }
+
+        [data-theme="matcha"] {
+            --bg-color: #E8EFE6;
+            --card-color: #F9FBF9;
+            --text-color: #162619;
+            --accent-color: #3B7A57;
+            --secondary-color: #D2E0CE;
+            --border-color: #162619;
+        }
+
+        [data-theme="cyber95"] {
+            --bg-color: #16161A;
+            --card-color: #242629;
+            --text-color: #FFFFFE;
+            --accent-color: #7F5AF0;
+            --secondary-color: #2CB67D;
+            --border-color: #FFFFFE;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+        }
+
+        /* Subtle Dot Grid Background */
+        .bg-grid {
+            background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 24px 24px;
+            background-position: -1px -1px;
+        }
+
+        /* Retro Brutalist Shadow & Borders */
+        .retro-border {
+            border: 2px solid var(--border-color);
+        }
+
+        .retro-shadow {
+            box-shadow: 5px 5px 0px var(--border-color);
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .retro-shadow-sm {
+            box-shadow: 3px 3px 0px var(--border-color);
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .retro-shadow-hover:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0px var(--border-color);
+        }
+
+        .retro-btn:active {
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px 0px var(--border-color);
+        }
+
+        /* Film Grain Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.035;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 24s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        /* Vinyl Spin Animation */
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .spin-vinyl {
+            animation: spin-slow 6s linear infinite;
+            animation-play-state: paused;
+        }
+        .spin-vinyl.playing {
+            animation-play-state: running;
+        }
+
+        /* Unified Retro In-Out Animation Engine */
+        .retro-reveal {
+            opacity: 0;
+            transform: translateY(32px) scale(0.97);
+            transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
+        }
+        .retro-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .retro-reveal.is-exited-up {
+            opacity: 0.15;
+            transform: translateY(-20px) scale(0.98);
+        }
+        .stagger-1 { transition-delay: 80ms; }
+        .stagger-2 { transition-delay: 160ms; }
+        .stagger-3 { transition-delay: 240ms; }
+        .stagger-4 { transition-delay: 320ms; }
+        .stagger-5 { transition-delay: 400ms; }
+
+        /* Navbar Active Indicator (ScrollSpy) */
+        .nav-link-retro {
+            position: relative;
+            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+            border-radius: 0.5rem;
+            padding: 0.25rem 0.65rem;
+        }
+        .nav-link-retro.is-active {
+            background-color: var(--accent-color);
+            color: #ffffff !important;
+            box-shadow: 2px 2px 0px var(--border-color);
             font-weight: 700;
-            border-bottom: 2px solid #2563eb;
+        }
+
+        /* Smooth Filter Animation on Project Cards */
+        .project-card {
+            transition: opacity 0.22s cubic-bezier(0.22, 1, 0.36, 1), transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .retro-reveal {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Custom Cursor (Desktop Only) */
+        @media (pointer: fine) {
+            .custom-cursor {
+                width: 20px;
+                height: 20px;
+                border: 2px solid var(--border-color);
+                background-color: var(--accent-color);
+                border-radius: 50%;
+                position: fixed;
+                pointer-events: none;
+                z-index: 10000;
+                transform: translate(-50%, -50%);
+                transition: width 0.2s, height 0.2s, background-color 0.2s, transform 0.08s ease-out;
+                mix-blend-mode: normal;
+            }
+            .custom-cursor.hovered {
+                width: 44px;
+                height: 44px;
+                background-color: transparent;
+                border-width: 2px;
+                border-style: dashed;
+            }
         }
     </style>
+
+    <!-- Pre-load theme from localStorage immediately -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('ikhsan_retro_theme');
+                if (savedTheme && savedTheme !== 'default') {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+            } catch (e) {}
+        })();
+    </script>
 </head>
-<body class="bg-slate-50 font-sans text-slate-700 min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+<body class="font-sans antialiased selection:bg-retro-accent selection:text-white">
 
-    <!-- Header / Sticky Navbar -->
-    <header id="main-header" class="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 md:h-20 transition-all duration-300" id="navbar-container">
-                
-                <!-- Logo -->
-                <a href="/" class="flex items-center gap-2 group">
-                    <div class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold font-heading shadow-md group-hover:scale-105 transition-transform">
-                        IK
-                    </div>
-                    <span class="font-heading font-extrabold text-lg text-slate-800 tracking-tight group-hover:text-blue-600 transition-colors">
-                        Ikhsan<span class="text-blue-600 group-hover:text-slate-800">.</span>
-                    </span>
+    <!-- Noise Overlay -->
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <!-- Custom Cursor (Desktop Only) -->
+    <div id="cursor" class="custom-cursor hidden md:block" aria-hidden="true"></div>
+
+    <!-- Top OS Status Bar -->
+    <div class="w-full retro-border border-t-0 border-x-0 bg-retro-secondary px-4 py-1.5 text-xs font-mono flex flex-wrap justify-between items-center gap-2 sticky top-0 z-50">
+        <div class="flex items-center gap-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-green-500 border border-retro-border animate-pulse"></span>
+            <span class="font-bold tracking-tight">IKHSAN_OS v2.6</span>
+            <span class="hidden sm:inline text-retro-text/75">| TASIKMALAYA, ID ✦ TERSEDIA UNTUK FULLSTACK &amp; WEB DEV</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <!-- Theme Switcher -->
+            <div class="flex items-center gap-1.5" role="group" aria-label="Pemilih Tema">
+                <span class="hidden md:inline font-bold">TEMA:</span>
+                <button type="button" onclick="setTheme('default')" title="Classic Cream" aria-label="Tema Classic Cream" class="w-4 h-4 rounded-full bg-[#FF5A36] border border-black hover:scale-125 transition-transform"></button>
+                <button type="button" onclick="setTheme('matcha')" title="Retro Matcha" aria-label="Tema Retro Matcha" class="w-4 h-4 rounded-full bg-[#3B7A57] border border-black hover:scale-125 transition-transform"></button>
+                <button type="button" onclick="setTheme('cyber95')" title="Cyber 95 Dark" aria-label="Tema Cyber 95 Dark" class="w-4 h-4 rounded-full bg-[#7F5AF0] border border-white hover:scale-125 transition-transform"></button>
+            </div>
+            <span id="live-clock" class="font-bold">00:00:00 WIB</span>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="max-w-[1380px] w-[92%] mx-auto pt-5 pb-3">
+        <nav class="bg-retro-card retro-border retro-shadow rounded-xl px-4 sm:px-6 py-3 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="/#beranda" class="font-serif font-black text-xl sm:text-2xl tracking-tight flex items-center gap-2 group">
+                <span class="w-8 h-8 rounded-lg bg-retro-accent text-white retro-border flex items-center justify-center font-mono text-base group-hover:rotate-12 transition-transform shadow-xs">IK</span>
+                <span>Ikhsan<span class="text-retro-accent">.dev</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-3 xl:gap-4 font-mono text-xs sm:text-sm">
+                <a href="/#beranda" class="nav-link-retro hover:text-retro-accent transition-all" data-target="beranda">Beranda</a>
+                <a href="/#tentang" class="nav-link-retro hover:text-retro-accent transition-all" data-target="tentang">Tentang</a>
+                <a href="/#keahlian" class="nav-link-retro hover:text-retro-accent transition-all" data-target="keahlian">Keahlian</a>
+                <a href="/#studi" class="nav-link-retro hover:text-retro-accent transition-all" data-target="studi">Studi</a>
+                <a href="/#proyek" class="nav-link-retro hover:text-retro-accent transition-all" data-target="proyek">Proyek</a>
+                <a href="/#kontak" class="nav-link-retro hover:text-retro-accent transition-all" data-target="kontak">Kontak</a>
+            </div>
+
+            <!-- Action Buttons: Admin & Mobile Menu -->
+            <div class="flex items-center gap-2.5">
+                <?php if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true): ?>
+                    <a href="/admin/dashboard" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-retro-accent text-white retro-border retro-shadow-sm retro-btn font-mono text-xs font-bold transition-all">
+                        <i class="ph-bold ph-gauge"></i>
+                        <span>Panel Admin</span>
+                    </a>
+                <?php else: ?>
+                    <a href="/admin/login" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-retro-secondary hover:bg-retro-accent hover:text-white retro-border retro-shadow-sm retro-btn font-mono text-xs font-bold transition-all">
+                        <i class="ph-bold ph-lock-key"></i>
+                        <span>Login Admin</span>
+                    </a>
+                <?php endif; ?>
+
+                <!-- Mobile Menu Button (Retro Boxed Button) -->
+                <button id="mobile-menu-btn" type="button" class="lg:hidden w-10 h-10 rounded-xl bg-retro-secondary hover:bg-retro-accent hover:text-white retro-border retro-shadow-sm flex items-center justify-center text-xl transition-all active:translate-x-0.5 active:translate-y-0.5 cursor-pointer" aria-label="Buka Menu Navigasi" aria-expanded="false">
+                    <i id="mobile-menu-icon" class="ph-bold ph-list"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Drawer / Dropdown Window (OS Window Style) -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-3 bg-retro-card retro-border retro-shadow rounded-2xl overflow-hidden font-mono text-xs sm:text-sm flex-col">
+            <!-- OS Title Bar -->
+            <div class="bg-retro-secondary border-b-2 border-retro-border px-4 py-2.5 flex items-center justify-between font-bold">
+                <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#FF5F56] border border-black inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] border border-black inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#27C93F] border border-black inline-block"></span>
+                    <span class="ml-2 text-retro-text text-xs tracking-wider">NAV_DRAWER.SYS</span>
+                </div>
+                <span class="text-[10px] bg-retro-card px-2 py-0.5 rounded border border-retro-border text-retro-accent font-bold">READY</span>
+            </div>
+
+            <!-- Drawer Links -->
+            <div class="p-3 space-y-1 bg-retro-card">
+                <a href="/#beranda" class="nav-link-retro mobile-link py-2.5 px-3 rounded-lg border border-transparent hover:border-retro-border hover:bg-retro-secondary flex items-center justify-between font-bold text-retro-text transition-colors" data-target="beranda">
+                    <span>Beranda</span>
+                    <i class="ph-bold ph-caret-right text-xs"></i>
                 </a>
-
-                <!-- Desktop Navigation Links -->
-                <nav class="hidden md:flex items-center gap-8 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                    <a href="/#home" class="nav-link py-2 hover:text-blue-600 transition-colors">Beranda</a>
-                    <a href="/#tentang" class="nav-link py-2 hover:text-blue-600 transition-colors">Tentang</a>
-                    <a href="/#keahlian" class="nav-link py-2 hover:text-blue-600 transition-colors">Keahlian</a>
-                    <a href="/#pendidikan" class="nav-link py-2 hover:text-blue-600 transition-colors">Studi</a>
-                    <a href="/#proyek" class="nav-link py-2 hover:text-blue-600 transition-colors">Proyek</a>
-                    <a href="/#kontak" class="nav-link py-2 hover:text-blue-600 transition-colors">Kontak</a>
-                </nav>
-
-                <!-- Desktop CTA Actions -->
-                <div class="hidden md:flex items-center gap-3">
+                <a href="/#tentang" class="nav-link-retro mobile-link py-2.5 px-3 rounded-lg border border-transparent hover:border-retro-border hover:bg-retro-secondary flex items-center justify-between font-bold text-retro-text transition-colors" data-target="tentang">
+                    <span>Tentang</span>
+                    <i class="ph-bold ph-caret-right text-xs"></i>
+                </a>
+                <a href="/#keahlian" class="nav-link-retro mobile-link py-2.5 px-3 rounded-lg border border-transparent hover:border-retro-border hover:bg-retro-secondary flex items-center justify-between font-bold text-retro-text transition-colors" data-target="keahlian">
+                    <span>Keahlian</span>
+                    <i class="ph-bold ph-caret-right text-xs"></i>
+                </a>
+                <a href="/#studi" class="nav-link-retro mobile-link py-2.5 px-3 rounded-lg border border-transparent hover:border-retro-border hover:bg-retro-secondary flex items-center justify-between font-bold text-retro-text transition-colors" data-target="studi">
+                    <span>Studi</span>
+                    <i class="ph-bold ph-caret-right text-xs"></i>
+                </a>
+                <a href="/#proyek" class="nav-link-retro mobile-link py-2.5 px-3 rounded-lg border border-transparent hover:border-retro-border hover:bg-retro-secondary flex items-center justify-between font-bold text-retro-text transition-colors" data-target="proyek">
+                    <span>Proyek</span>
+                    <i class="ph-bold ph-caret-right text-xs"></i>
+                </a>
+                <a href="/#kontak" class="nav-link-retro mobile-link py-2.5 px-3 rounded-lg border border-transparent hover:border-retro-border hover:bg-retro-secondary flex items-center justify-between font-bold text-retro-text transition-colors" data-target="kontak">
+                    <span>Kontak</span>
+                    <i class="ph-bold ph-caret-right text-xs"></i>
+                </a>
+                
+                <div class="pt-2 border-t-2 border-retro-border/20 mt-1">
                     <?php if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true): ?>
-                        <a href="/admin/dashboard" class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow transition-all focus:outline-none">
-                            <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i> Panel Admin
+                        <a href="/admin/dashboard" class="mobile-link py-2.5 px-4 bg-retro-accent text-white text-center rounded-xl retro-border font-bold flex items-center justify-center gap-2 shadow-xs">
+                            <i class="ph-bold ph-gauge"></i>
+                            <span>Panel Admin ↗</span>
                         </a>
                     <?php else: ?>
-                        <a href="/admin/login" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 border border-slate-300 rounded-lg hover:bg-slate-100 transition-colors">
-                            <i data-lucide="lock" class="w-3.5 h-3.5"></i> Login Admin
+                        <a href="/admin/login" class="mobile-link py-2.5 px-4 bg-retro-secondary hover:bg-retro-accent hover:text-white text-center rounded-xl retro-border font-bold flex items-center justify-center gap-2 transition-colors">
+                            <i class="ph-bold ph-lock-key"></i>
+                            <span>Login Admin ↗</span>
                         </a>
                     <?php endif; ?>
                 </div>
-
-                <!-- Mobile Hamburger Menu Button -->
-                <div class="flex items-center md:hidden">
-                    <button type="button" onclick="toggleMobileMenu()" class="p-2 rounded-md text-slate-600 hover:text-blue-600 focus:outline-none" aria-label="Menu Utama">
-                        <i data-lucide="menu" class="w-6 h-6" id="menu-icon"></i>
-                    </button>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Mobile Drawer Menu -->
-        <div class="hidden md:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-3" id="mobile-menu">
-            <a href="/#home" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">Beranda</a>
-            <a href="/#tentang" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">Tentang</a>
-            <a href="/#keahlian" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">Keahlian</a>
-            <a href="/#pendidikan" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">Studi</a>
-            <a href="/#proyek" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">Proyek</a>
-            <a href="/#kontak" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">Kontak</a>
-            
-            <div class="pt-4 border-t border-slate-100">
-                <?php if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true): ?>
-                    <a href="/admin/dashboard" onclick="toggleMobileMenu()" class="flex items-center justify-center gap-1.5 w-full py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm">
-                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Panel Admin
-                    </a>
-                <?php else: ?>
-                    <a href="/admin/login" onclick="toggleMobileMenu()" class="flex items-center justify-center gap-1.5 w-full py-2.5 text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200 rounded-lg">
-                        <i data-lucide="lock" class="w-4 h-4"></i> Login Admin
-                    </a>
-                <?php endif; ?>
             </div>
         </div>
     </header>
 
-    <!-- Main Container -->
-    <main class="flex-grow pt-16 md:pt-20">
+    <!-- Main Content Container -->
+    <main class="w-full">

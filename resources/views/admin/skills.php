@@ -118,6 +118,7 @@
                     <option value="Database">Database</option>
                     <option value="Frontend">Frontend</option>
                     <option value="Tools">Tools</option>
+                    <option value="Server &amp; Deployment">Server &amp; Deployment</option>
                     <option value="Soft Skill">Soft Skill</option>
                 </select>
             </div>
@@ -191,6 +192,7 @@
                     <option value="Database">Database</option>
                     <option value="Frontend">Frontend</option>
                     <option value="Tools">Tools</option>
+                    <option value="Server &amp; Deployment">Server &amp; Deployment</option>
                     <option value="Soft Skill">Soft Skill</option>
                 </select>
             </div>

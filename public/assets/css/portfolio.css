@@ -1,0 +1,1577 @@
+/* ==========================================================================
+   PORTFOLIO SCRAPBOOK THEME STYLESHEET
+   Accurate visual match to Mockup (Gambar 2)
+   ========================================================================== */
+
+/* Root & Color Palette */
+.project-scrapbook {
+    padding: 80px 24px;
+    color: var(--ink-black);
+    background: radial-gradient(#b9aa8e33 .8px, transparent .8px) 0 0 / 6px 6px, #eae3d5;
+}
+
+.project-scrapbook > div {
+    position: relative;
+    max-width: 1200px;
+    padding: 56px 54px 48px 78px;
+    border: 1px solid #c9bea8;
+    background: linear-gradient(90deg, transparent 39px, #ba6b5b55 39px, #ba6b5b55 41px, transparent 41px), repeating-linear-gradient(transparent 0 31px, #b5aa922e 31px 32px), var(--paper-bg);
+    box-shadow: 3px 8px 22px #39332212;
+}
+
+.project-scrapbook > div::before {
+    content: '';
+    position: absolute;
+    width: 145px;
+    height: 32px;
+    top: -15px;
+    left: calc(50% - 72px);
+    background: var(--sage-tape);
+    opacity: .65;
+    transform: rotate(-3deg);
+    box-shadow: 0 2px 3px #27272215;
+}
+
+.projects-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.projects-eyebrow {
+    font: 10px monospace;
+    letter-spacing: .22em;
+    color: #756b5a;
+}
+
+.projects-heading h2 {
+    margin: 12px 0;
+    font: italic clamp(44px, 6vw, 80px)/1.05 Georgia, serif;
+    letter-spacing: -.05em;
+}
+
+.projects-heading h2 span { color: var(--terracotta); }
+.projects-subtitle { font-size: 12px; color: #756b5a; }
+.projects-note { font: 26px/1.15 'Caveat', cursive; transform: rotate(4deg); color: #706655; }
+.projects-note svg { width: 48px; height: 34px; margin: 8px auto 0; color: var(--terracotta); }
+
+.project-scrapbook .filter-tab {
+    border: 1px solid #c9bea8;
+    border-radius: 2px;
+    color: #625b4f;
+    background: #faf7f0;
+    box-shadow: 2px 2px 0 #c9bea844;
+}
+
+.project-scrapbook .filter-tab[aria-pressed="true"] {
+    background: var(--ink-black);
+    color: var(--paper-bg);
+    transform: rotate(-2deg);
+    box-shadow: 2px 3px 0 #c9bea8;
+    --tw-ring-shadow: 0 0 transparent;
+}
+
+.project-scrapbook #projects-grid { gap: 40px 28px; padding-top: 10px; }
+.project-scrapbook .project-card {
+    position: relative;
+    padding: 12px 12px 0;
+    border: 1px solid #d2c9b5;
+    border-radius: 0;
+    overflow: visible;
+    background: #fffcf3;
+    box-shadow: 3px 8px 12px #39332224;
+    transform: rotate(-2deg);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.project-scrapbook .project-card:nth-child(3n + 2) { transform: rotate(1.5deg); }
+.project-scrapbook .project-card:nth-child(3n) { transform: rotate(-1deg); }
+.project-scrapbook .project-card::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: -9px;
+    left: calc(50% - 7px);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #b74f3d;
+    box-shadow: inset -2px -2px 2px #0003, 1px 3px 3px #0004;
+}
+
+.project-scrapbook .project-card:nth-child(3n + 2)::before { background: #d8ae40; }
+.project-scrapbook .project-card:nth-child(3n)::before { background: #486985; }
+.project-scrapbook .project-card:hover,
+.project-scrapbook .project-card:focus-within { transform: rotate(0) translateY(-5px); box-shadow: 4px 12px 20px #39332230; }
+.project-scrapbook .project-card > div:first-child { height: auto; aspect-ratio: 4 / 3; background: #e9e3d6; }
+.project-scrapbook .project-card > div:nth-child(2) { padding: 14px 5px 18px; }
+.project-scrapbook .project-card h3 { font: 600 27px/1.1 'Caveat', cursive; color: var(--ink-black); }
+.project-scrapbook .project-card p { color: #756b5a; }
+.project-scrapbook .project-card span { color: #726753; background: #eee8db; border-color: #d8ceba; border-radius: 0; --tw-ring-shadow: 0 0 transparent; }
+.project-scrapbook .project-card a { background: transparent; border: 0; border-top: 1px dashed #c9bea8; border-radius: 0; color: var(--terracotta); justify-content: space-between; padding: 12px 0 0; }
+.project-scrapbook button:focus-visible,
+.project-scrapbook a:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 5px; }
+
+@media (min-width: 1024px) {
+    .project-scrapbook {
+        padding: 28px 24px;
+        scroll-margin-top: 80px;
+    }
+
+    .project-scrapbook > div {
+        max-width: 1280px;
+        padding: 28px 32px 20px 56px;
+    }
+
+    .projects-heading { margin-bottom: 18px; }
+    .projects-heading h2 { font-size: clamp(44px, 4.5vw, 62px); margin: 8px 0; }
+    .projects-note { font-size: 23px; }
+    .projects-note svg { height: 24px; margin-top: 4px; }
+    .project-scrapbook .projects-heading + div { margin-bottom: 14px; }
+
+    .project-scrapbook #projects-grid {
+        display: grid;
+        grid-template-columns: none;
+        grid-auto-flow: column;
+        grid-auto-columns: calc((100% - 60px) / 4);
+        gap: 20px;
+        overflow-x: auto;
+        padding: 14px 8px 18px;
+        scroll-snap-type: x proximity;
+        scrollbar-width: thin;
+        scrollbar-color: #a99b82 transparent;
+    }
+
+    .project-scrapbook .project-card {
+        min-width: 0;
+        padding: 8px 8px 0;
+        scroll-snap-align: start;
+    }
+
+    .project-scrapbook .project-card > div:first-child {
+        height: clamp(105px, 20vh, 165px);
+        aspect-ratio: auto;
+        flex-shrink: 0;
+    }
+
+    .project-scrapbook .project-card > div:nth-child(2) {
+        padding: 10px 3px 12px;
+        gap: 8px;
+    }
+
+    .project-scrapbook .project-card h3 {
+        font-size: 23px;
+        line-height: 1.15;
+        height: 2.3em;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .project-scrapbook .project-card p { display: none; }
+    .project-scrapbook .project-card > div:nth-child(2) > div:last-child { margin-top: 0; padding-top: 8px; }
+    .project-scrapbook .project-card > div:nth-child(2) > div:last-child > div { flex-wrap: nowrap; overflow: hidden; height: 16px; }
+    .project-scrapbook .project-card > div:nth-child(2) > div:last-child span { flex-shrink: 0; }
+    .project-scrapbook .project-card a { margin-top: 8px; padding-top: 8px; font-size: 11px; }
+}
+
+@media (max-width: 767px) {
+    .project-scrapbook { padding: 48px 16px; }
+    .project-scrapbook > div { padding: 40px 22px 32px 30px; background: repeating-linear-gradient(transparent 0 31px, #b5aa922e 31px 32px), var(--paper-bg); }
+    .projects-heading { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .projects-note { font-size: 23px; align-self: flex-end; }
+    .projects-note svg { display: none; }
+    .project-scrapbook #projects-grid { gap: 32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .project-scrapbook .project-card { transition: none; }
+}
+
+:root {
+    --ink-black: #272722;
+    --terracotta: #A64F39;
+    --sage-green: #78856D;
+    --paper-bg: #F6F1E7;
+    --nav-bg: #FFFCF8;
+    --nav-border: #E8E1D6;
+    --paper-card: #FAF7F0;
+    --kraft-tape: rgba(218, 203, 172, 0.85);
+    --sage-tape: rgba(135, 148, 120, 0.85);
+}
+
+.portfolio-nav,
+.portfolio-hero {
+    color: var(--ink-black);
+    font-family: 'Inter', sans-serif;
+}
+
+/* ==========================================================================
+   1. NAVBAR STYLES
+   Warm white #FFFCF8 with delicate bottom border #E8E1D6
+   ========================================================================== */
+.portfolio-nav {
+    background-color: var(--nav-bg);
+    border-bottom: 1px solid var(--nav-border);
+    transition: box-shadow 0.25s ease, background-color 0.25s ease, height 0.25s ease;
+}
+
+/* Persist warm white #FFFCF8 during scroll */
+.portfolio-nav.is-scrolled {
+    background-color: var(--nav-bg) !important;
+    border-bottom: 1px solid var(--nav-border) !important;
+    box-shadow: 0 4px 20px rgba(39, 39, 34, 0.05);
+}
+
+.portfolio-nav #navbar-container {
+    height: 5rem;
+    transition: height 0.25s ease;
+}
+
+.portfolio-nav.is-scrolled #navbar-container {
+    height: 4.25rem;
+}
+
+/* Desktop Links & Active State with Hand-drawn Dot + Line */
+.portfolio-nav .nav-link {
+    position: relative;
+    color: #4A4A45;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.35rem 0.15rem;
+    transition: color 0.2s ease;
+}
+
+.portfolio-nav .nav-link:hover {
+    color: var(--terracotta);
+}
+
+.portfolio-nav .active-nav-link {
+    color: var(--terracotta) !important;
+    font-weight: 600;
+}
+
+/* Mockup Handdrawn Underline + Dot */
+.portfolio-nav .active-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 8px;
+    right: -2px;
+    height: 2.5px;
+    background: var(--terracotta);
+    border-radius: 9999px;
+}
+
+.portfolio-nav .active-nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: -1px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--terracotta);
+}
+
+.portfolio-nav #mobile-menu {
+    background-color: var(--nav-bg);
+    border-color: var(--nav-border);
+    max-height: calc(100dvh - 4rem);
+    overflow-y: auto;
+}
+
+.portfolio-nav a:focus-visible,
+.portfolio-nav button:focus-visible,
+.portfolio-hero a:focus-visible {
+    outline: 2px solid var(--terracotta);
+    outline-offset: 4px;
+}
+
+.portfolio-nav ::selection,
+.portfolio-hero ::selection {
+    background: var(--terracotta);
+    color: #FFFFFF;
+}
+
+/* ==========================================================================
+   2. HERO SECTION
+   Cream #F6F1E7 with wide 1440px responsive container
+   ========================================================================== */
+.portfolio-hero {
+    position: relative;
+    background-color: var(--paper-bg);
+    /* Natural subtle paper grain + fine stippled dot pattern */
+    background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.15 0 0 0 0 0.14 0 0 0 0 0.12 0 0 0 0.042 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"),
+        radial-gradient(rgba(39, 39, 34, 0.045) 0.75px, transparent 0.75px),
+        radial-gradient(rgba(166, 79, 57, 0.025) 0.75px, transparent 0.75px);
+    background-size: 160px 160px, 10px 10px, 20px 20px;
+    background-position: 0 0, 0 0, 5px 5px;
+    overflow-x: hidden;
+    padding-top: clamp(2rem, 4vw, 4rem);
+    padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
+    scroll-margin-top: 5rem;
+}
+
+/* Torn paper collage at bottom-left corner */
+.hero-torn-paper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: clamp(120px, 15vw, 190px);
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Wide 1440px Hero Layout with balanced editorial columns */
+.portfolio-hero .hero-layout {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 3.5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2rem, 4vw, 4.5rem);
+    position: relative;
+    z-index: 2;
+}
+
+/* Left Column: Editorial Copy */
+.portfolio-hero .hero-copy {
+    min-width: 0;
+}
+
+/* Greeting with Hand-drawn Underline & Doodles */
+.hero-greeting-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.85rem;
+    position: relative;
+}
+
+.hero-doodle-pin {
+    color: #4A4A45;
+    flex-shrink: 0;
+    transform: rotate(-15deg);
+}
+
+.hero-greeting-content {
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.hero-greeting-text {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    font-weight: 700;
+    color: var(--ink-black);
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+}
+
+.hero-greeting-underline {
+    margin-top: -2px;
+    width: 100%;
+    max-width: 145px;
+}
+
+.hero-greeting-ticks {
+    flex-shrink: 0;
+    margin-left: 0.2rem;
+    margin-bottom: 0.35rem;
+}
+
+/* Main Headline */
+.hero-title {
+    font-family: 'Outfit', sans-serif;
+    line-height: 1.04;
+    letter-spacing: -0.04em;
+    margin-top: 0.5rem;
+}
+
+.hero-title-lead {
+    display: block;
+    font-size: clamp(3rem, 5.2vw, 5rem);
+    font-weight: 800;
+    color: var(--ink-black);
+}
+
+.hero-title-name {
+    display: block;
+    font-size: clamp(3rem, 5.2vw, 5rem);
+    font-weight: 800;
+    color: var(--terracotta);
+    position: relative;
+    white-space: nowrap; /* Keeps name on single line on desktop */
+}
+
+.hero-name-underline {
+    display: block;
+    width: 100%;
+    max-width: clamp(240px, 32vw, 360px);
+    height: clamp(10px, 1.6vw, 16px);
+    margin-top: 0.25rem;
+}
+
+/* Profession Tag */
+.hero-headline-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+}
+
+.hero-headline-bar {
+    width: 3.5px;
+    height: 1.65rem;
+    background-color: var(--sage-green);
+    border-radius: 9999px;
+    flex-shrink: 0;
+}
+
+.hero-headline {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+    font-weight: 600;
+    color: var(--ink-black);
+    line-height: 1.25;
+}
+
+/* Bio Text */
+.hero-bio {
+    font-size: clamp(0.875rem, 1.05vw, 0.975rem);
+    line-height: 1.8;
+    color: #4E4E48;
+    max-width: 38rem;
+    margin-top: 1.15rem;
+}
+
+/* CTA Actions & Annotation */
+.hero-actions-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.85rem 1.4rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 0.65rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(39, 39, 34, 0.06);
+}
+
+.hero-btn-primary {
+    background-color: var(--ink-black);
+    color: #FFFFFF;
+    border: 1px solid var(--ink-black);
+}
+
+.hero-btn-primary:hover {
+    background-color: var(--terracotta);
+    border-color: var(--terracotta);
+    color: #FFFFFF;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(166, 79, 57, 0.25);
+}
+
+.hero-btn-secondary {
+    background-color: #FFFFFF;
+    color: var(--ink-black);
+    border: 1px solid rgba(39, 39, 34, 0.25);
+}
+
+.hero-btn-secondary:hover {
+    background-color: #FAF7F0;
+    border-color: var(--ink-black);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(39, 39, 34, 0.08);
+}
+
+/* Handwritten annotation next to CTA */
+.hero-cta-annotation {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transform: rotate(-2deg);
+}
+
+.hero-cta-arrow {
+    flex-shrink: 0;
+}
+
+.hero-cta-annotation-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #55554E;
+    line-height: 1.15;
+}
+
+/* ==========================================================================
+   3. RIGHT COLUMN: SCRAPBOOK COMPOSITION
+   Spacious 530px stage with fully legible, unobstructed personal info card
+   ========================================================================== */
+.hero-art-column {
+    position: relative;
+    width: 100%;
+}
+
+.scrapbook-stage {
+    position: relative;
+    width: 100%;
+    max-width: 530px;
+    min-height: 490px;
+    margin: 0 auto;
+    padding: 2.5rem 1rem 3.5rem 1rem;
+    isolation: isolate;
+}
+
+/* Grid paper behind photo */
+.scrapbook-grid-paper {
+    position: absolute;
+    inset: 15px 5px 30px 20px;
+    background-color: #F1EFE8;
+    background-image:
+        linear-gradient(rgba(120, 133, 109, 0.22) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(120, 133, 109, 0.22) 1px, transparent 1px);
+    background-size: 22px 22px;
+    transform: rotate(3.5deg);
+    border-radius: 2px;
+    box-shadow: 0 6px 18px rgba(39, 39, 34, 0.05);
+    z-index: 1;
+}
+
+/* Washi tape pieces */
+.scrapbook-washi {
+    position: absolute;
+    box-shadow: 0 1px 3px rgba(39, 39, 34, 0.08);
+    pointer-events: none;
+}
+
+.washi-sticky {
+    top: -10px;
+    left: calc(50% - 25px);
+    width: 50px;
+    height: 19px;
+    background: var(--kraft-tape);
+    transform: rotate(3deg);
+    z-index: 22;
+}
+
+.washi-info-card {
+    top: -10px;
+    left: calc(50% - 30px);
+    width: 60px;
+    height: 20px;
+    background: var(--kraft-tape);
+    transform: rotate(-2deg);
+    z-index: 8;
+}
+
+.washi-polaroid-top {
+    top: -14px;
+    left: calc(50% - 45px);
+    width: 90px;
+    height: 26px;
+    background: var(--kraft-tape);
+    transform: rotate(-3deg);
+    z-index: 15;
+}
+
+.washi-polaroid-bottom {
+    bottom: 35px;
+    left: -24px;
+    width: 78px;
+    height: 25px;
+    background: var(--sage-tape);
+    transform: rotate(14deg);
+    z-index: 25;
+}
+
+/* Sticky Note: Build, Learn, Improve, Repeat. */
+.scrapbook-sticky-note {
+    position: absolute;
+    top: -8px;
+    left: -10px;
+    background-color: #E7DEBE;
+    padding: 1.15rem 1.25rem 0.85rem 1.1rem;
+    transform: rotate(-6deg);
+    box-shadow: 0 8px 22px rgba(39, 39, 34, 0.12);
+    border-radius: 2px;
+    width: 130px;
+    z-index: 20;
+}
+
+.sticky-note-content p {
+    font-family: 'Caveat', cursive;
+    font-size: 1.18rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--ink-black);
+    margin: 0;
+}
+
+.sticky-note-smiley {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.35rem;
+}
+
+/* Main Polaroid Photo Card - Slightly shifted left to grant full visibility to info card */
+.scrapbook-polaroid {
+    position: relative;
+    background-color: #FFFFFF;
+    padding: 0.85rem 0.85rem 1.35rem 0.85rem;
+    box-shadow: 0 18px 45px rgba(39, 39, 34, 0.16), 0 3px 12px rgba(0, 0, 0, 0.04);
+    transform: rotate(1.5deg);
+    z-index: 10;
+    max-width: 310px;
+    margin-left: 15px;
+    margin-right: auto;
+    border-radius: 2px;
+}
+
+.polaroid-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1.12;
+    object-fit: cover;
+    object-position: center;
+    background-color: #EEECE5;
+    border-radius: 1px;
+}
+
+.polaroid-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1.12;
+    background-color: #EEECE5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: #6B6B64;
+}
+
+.polaroid-caption {
+    text-align: center;
+    margin-top: 0.85rem;
+}
+
+.polaroid-caption-name {
+    font-family: 'Caveat', cursive;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--ink-black);
+    line-height: 1.15;
+}
+
+.polaroid-caption-sub {
+    font-family: 'Caveat', cursive;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #65655E;
+    line-height: 1.15;
+    margin-top: 0.1rem;
+}
+
+/* Personal Info Index Card (Right of Polaroid)
+   Positioned and padded so all icons and text lines are completely visible and readable */
+.scrapbook-info-card {
+    position: absolute;
+    top: 38px;
+    right: -10px;
+    width: 220px;
+    background-color: #FAF7F0;
+    border: 1px solid #DFD8CB;
+    border-radius: 3px;
+    padding: 1.35rem 0.85rem 1.15rem 1.35rem;
+    transform: rotate(4deg);
+    box-shadow: 0 10px 24px rgba(39, 39, 34, 0.08);
+    z-index: 6;
+}
+
+.info-card-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.info-card-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #3E3E39;
+    line-height: 1.32;
+    word-break: break-word;
+}
+
+.info-card-icon {
+    width: 15px;
+    height: 15px;
+    color: var(--sage-green);
+    flex-shrink: 0;
+    margin-top: 1.5px;
+}
+
+/* Botanical Branch (Left) */
+.scrapbook-botanical {
+    position: absolute;
+    left: -28px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-12deg);
+    z-index: 15;
+    pointer-events: none;
+}
+
+.scrapbook-flourish {
+    position: absolute;
+    top: 15px;
+    left: -15px;
+    opacity: 0.8;
+}
+
+/* Sparkle Star Doodle (Top Right) */
+.scrapbook-star-doodle {
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    z-index: 25;
+    transform: rotate(12deg);
+}
+
+/* Handwritten Quote (Bottom Right) */
+.scrapbook-quote {
+    position: absolute;
+    bottom: -15px;
+    right: -5px;
+    transform: rotate(6deg);
+    z-index: 25;
+    text-align: right;
+    pointer-events: none;
+}
+
+.scrapbook-quote p {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--ink-black);
+    margin: 0;
+}
+
+/* ==========================================================================
+   4. BOTTOM INFORMATION STRIP (PAPER STRIP)
+   Wide 1440px paper strip with clean spacing
+   ========================================================================== */
+.hero-strip-wrapper {
+    max-width: 1440px;
+    margin: 3.5rem auto 0 auto;
+    padding: 0 clamp(1.25rem, 3.5vw, 3.5rem);
+    position: relative;
+    z-index: 2;
+}
+
+.hero-strip-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(223, 217, 206, 0.9);
+    border-radius: 1.5rem;
+    padding: 1.35rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    box-shadow: 0 10px 30px rgba(39, 39, 34, 0.04);
+}
+
+.hero-strip-pod {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+
+/* Divider line between pods on desktop */
+.hero-strip-pod:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -0.75rem;
+    top: 15%;
+    height: 70%;
+    width: 1px;
+    background-color: rgba(39, 39, 34, 0.08);
+}
+
+.strip-pod-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.strip-pod-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.strip-pod-val {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--ink-black);
+}
+
+.strip-pod-lbl {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #60605A;
+    margin-top: 0.15rem;
+}
+
+/* ==========================================================================
+   5. RESPONSIVE BREAKPOINTS
+   Fluid scaling for 1920px, 1440px, 1366px, tablets, and mobile
+   ========================================================================== */
+@media (max-width: 1199px) {
+    .portfolio-hero .hero-layout {
+        gap: 2.5rem;
+    }
+
+    .hero-title-name {
+        font-size: clamp(2.5rem, 4.4vw, 4rem);
+    }
+
+    .scrapbook-stage {
+        max-width: 490px;
+    }
+
+    .scrapbook-polaroid {
+        max-width: 285px;
+        margin-left: 10px;
+    }
+
+    .scrapbook-info-card {
+        width: 200px;
+        right: -5px;
+        padding: 1.15rem 0.65rem 1rem 1.15rem;
+    }
+
+    .info-card-list li {
+        font-size: 0.76rem;
+    }
+}
+
+@media (max-width: 1023px) {
+    .portfolio-hero .hero-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 3.5rem;
+    }
+
+    .portfolio-hero .hero-copy {
+        max-width: 46rem;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .hero-title-name {
+        white-space: normal;
+    }
+
+    .scrapbook-stage {
+        margin: 1rem auto 0 auto;
+        max-width: 490px;
+    }
+
+    .hero-strip-card {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.75rem;
+        padding: 1.5rem;
+    }
+
+    .hero-strip-pod:nth-child(2)::after {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .portfolio-nav #navbar-container {
+        height: 4rem;
+    }
+
+    .portfolio-hero {
+        padding-top: 2rem;
+        padding-bottom: 2.5rem;
+    }
+
+    .portfolio-hero .hero-layout {
+        padding: 0 1rem;
+        gap: 2.5rem;
+    }
+
+    .scrapbook-stage {
+        max-width: 390px;
+        min-height: 440px;
+        padding: 2rem 0.5rem 3rem 0.5rem;
+    }
+
+    .scrapbook-polaroid {
+        max-width: 250px;
+        margin-left: 5px;
+    }
+
+    .scrapbook-info-card {
+        right: -5px;
+        top: 35px;
+        width: 170px;
+        padding: 1rem 0.55rem 0.85rem 0.95rem;
+    }
+
+    .info-card-list li {
+        font-size: 0.72rem;
+    }
+
+    .scrapbook-sticky-note {
+        left: -8px;
+        width: 115px;
+        padding: 1rem 0.95rem 0.75rem 0.85rem;
+    }
+
+    .scrapbook-quote {
+        right: -5px;
+        bottom: -10px;
+    }
+
+    .hero-strip-wrapper {
+        margin-top: 2.5rem;
+        padding: 0 1rem;
+    }
+
+    .hero-strip-card {
+        padding: 1.25rem 1rem;
+        gap: 1.25rem 1rem;
+    }
+
+    .hero-strip-pod::after {
+        display: none;
+    }
+
+    .strip-pod-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .strip-pod-val {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 479px) {
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .hero-btn {
+        width: 100%;
+    }
+
+    .hero-cta-annotation {
+        margin-top: 0.5rem;
+    }
+
+    .scrapbook-stage {
+        max-width: 330px;
+    }
+
+    .scrapbook-polaroid {
+        max-width: 220px;
+        margin-left: 0;
+    }
+
+    .scrapbook-info-card {
+        right: -2px;
+        width: 145px;
+        font-size: 0.68rem;
+        padding: 0.85rem 0.4rem 0.75rem 0.75rem;
+    }
+
+    .info-card-list li {
+        font-size: 0.68rem;
+    }
+
+    .scrapbook-sticky-note {
+        left: -4px;
+        width: 100px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html:has(.portfolio-nav) {
+        scroll-behavior: auto !important;
+    }
+    .portfolio-nav,
+    .portfolio-nav *,
+    .portfolio-hero * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+#tentang.portfolio-about {
+    scroll-margin-top: 6rem;
+    padding: clamp(3.5rem, 7vw, 6.5rem) 0 clamp(3rem, 6vw, 5.5rem);
+    color: #272722;
+    background-color: #FFFCF8;
+    background-image: radial-gradient(rgba(39, 39, 34, 0.025) 0.5px, transparent 0.5px);
+    background-size: 5px 7px;
+    font-family: 'Inter', sans-serif;
+    overflow-wrap: anywhere;
+}
+
+.portfolio-about .about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 3rem);
+}
+
+.portfolio-about .about-header {
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.portfolio-about .about-eyebrow {
+    margin: 0 0 0.5rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: #A64F39;
+}
+
+.portfolio-about #about-title {
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+}
+
+.portfolio-about .about-underline {
+    display: block;
+    width: min(15rem, 75%);
+    height: 14px;
+    margin-top: 0.65rem;
+    color: #A64F39;
+}
+
+.portfolio-about .about-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: start;
+}
+
+.portfolio-about .about-layout-solo {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 46rem;
+}
+
+.portfolio-about .about-narrative {
+    min-width: 0;
+}
+
+.portfolio-about .about-opening {
+    margin: 0 0 1.5rem;
+    padding-left: 1.25rem;
+    border-left: 3px solid #78856D;
+    font-family: inherit;
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+    font-weight: 500;
+    line-height: 1.75;
+}
+
+.portfolio-about .about-description {
+    max-width: 65ch;
+    color: #50504A;
+    font-size: 1rem;
+    line-height: 1.75;
+    display: grid;
+    gap: 1rem;
+}
+
+.portfolio-about .about-description p {
+    margin: 0;
+}
+
+.portfolio-about .about-description strong {
+    color: #272722;
+    font-weight: 600;
+}
+
+.portfolio-about .about-card {
+    position: relative;
+    min-width: 0;
+    padding: 1.75rem clamp(1.25rem, 3vw, 2rem);
+    background: #FFFCF8;
+    border: 1px solid #E8E1D6;
+    border-radius: 3px;
+    box-shadow: 5px 6px 0 #F6F1E7, 0 10px 25px rgba(39, 39, 34, 0.035);
+}
+
+.portfolio-about .about-card::before {
+    content: '';
+    position: absolute;
+    top: -0.6rem;
+    left: calc(50% - 2.5rem);
+    width: 5rem;
+    height: 1.3rem;
+    background: rgba(120, 133, 109, 0.22);
+    transform: rotate(-4deg);
+    pointer-events: none;
+}
+
+.portfolio-about .about-card h3 {
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid #E8E1D6;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.portfolio-about .about-contacts {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+}
+
+.portfolio-about .about-contact dt {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: #62625A;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+.portfolio-about .about-contact dt > :first-child {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    color: #78856D;
+}
+
+.portfolio-about .about-contact dd {
+    margin: 0.35rem 0 0 1.65rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.portfolio-about .about-contact a {
+    color: #272722;
+    text-decoration: underline;
+    text-decoration-color: #C8B7A5;
+    text-underline-offset: 0.25em;
+    transition: color 0.15s ease;
+}
+
+.portfolio-about .about-contact a:hover {
+    color: #A64F39;
+    text-decoration-color: currentColor;
+}
+
+.portfolio-about a:focus-visible {
+    outline: 2px solid #A64F39;
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
+@media (max-width: 900px) {
+    .portfolio-about .about-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .portfolio-about .about-card {
+        width: 100%;
+        max-width: 38rem;
+        box-sizing: border-box;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .portfolio-about,
+    .portfolio-about * {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+.portfolio-skills {
+    scroll-margin-top: 7rem;
+    padding: clamp(3.5rem, 7vw, 6.5rem) 0;
+    background: #F6F1E7;
+    color: #272722;
+    font-family: 'Inter', sans-serif;
+    overflow-wrap: anywhere;
+}
+
+.portfolio-skills .skills-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 3rem);
+}
+
+.portfolio-skills .skills-header {
+    max-width: 48rem;
+    margin: 0 auto clamp(3rem, 5vw, 4rem);
+    text-align: center;
+}
+
+.portfolio-skills .skills-eyebrow {
+    margin: 0 0 0.5rem;
+    color: #A64F39;
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+}
+
+.portfolio-skills #skills-title {
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+}
+
+.portfolio-skills .skills-title-accent {
+    display: inline-block;
+    position: relative;
+    color: #A64F39;
+    padding-bottom: 0.2em;
+}
+
+.portfolio-skills .skills-title-accent svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.28em;
+    pointer-events: none;
+}
+
+.portfolio-skills .skills-intro {
+    margin: 1rem auto 0;
+    max-width: 60ch;
+    color: #50504A;
+    font-size: 0.95rem;
+    line-height: 1.75;
+}
+
+.portfolio-skills .skills-board {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 2rem 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.portfolio-skills .skills-card {
+    position: relative;
+    min-width: 0;
+    max-width: 100%;
+    padding: 1.75rem 1.5rem;
+    background: #FFFCF8;
+    border: 1px solid #E2DACD;
+    border-radius: 3px;
+    box-shadow: 0 4px 0 rgba(39, 39, 34, 0.025), 0 10px 24px rgba(39, 39, 34, 0.04);
+}
+
+.portfolio-skills .skills-card::before {
+    content: '';
+    position: absolute;
+    top: -0.55rem;
+    left: 1.5rem;
+    width: 3.5rem;
+    height: 1.1rem;
+    background: rgba(218, 203, 172, 0.65);
+    pointer-events: none;
+}
+
+.portfolio-skills .skills-card-backend::before {
+    background: rgba(166, 79, 57, 0.4);
+    transform: rotate(-5deg);
+    width: 4.5rem;
+}
+
+.portfolio-skills .skills-card-frontend::before {
+    left: auto;
+    right: 1.5rem;
+    top: -0.7rem;
+    width: 0.9rem;
+    height: 2.3rem;
+    border: 2px solid #78856D;
+    border-radius: 1rem;
+    background: transparent;
+    box-shadow: inset 3px 0 #FFFCF8, inset 5px 0 #78856D;
+    transform: rotate(12deg);
+}
+
+.portfolio-skills .skills-card-database,
+.portfolio-skills .skills-card-tools {
+    background-image: linear-gradient(rgba(120, 133, 109, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(120, 133, 109, 0.08) 1px, transparent 1px);
+    background-size: 18px 18px;
+}
+
+.portfolio-skills .skills-card-database::before {
+    left: auto;
+    right: 1.5rem;
+    transform: rotate(5deg);
+}
+
+.portfolio-skills .skills-card-database::after {
+    content: '';
+    position: absolute;
+    top: 0.5rem;
+    left: 1rem;
+    width: 3.5rem;
+    height: 0.5rem;
+    background: radial-gradient(circle, #E2DACD 3px, transparent 4px) 0 0 / 18px 8px;
+    pointer-events: none;
+}
+
+.portfolio-skills .skills-card-tools::before {
+    background: rgba(120, 133, 109, 0.4);
+    left: calc(50% - 2rem);
+    width: 4rem;
+    transform: rotate(-3deg);
+}
+
+.portfolio-skills .skills-card-soft {
+    background: #FAF5EA;
+}
+
+.portfolio-skills .skills-card-soft::before {
+    display: none;
+}
+
+.portfolio-skills .skills-botanical {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.25rem;
+    width: 3rem;
+    height: 3.5rem;
+    color: #78856D;
+    opacity: 0.22;
+    pointer-events: none;
+}
+
+.portfolio-skills .skills-card-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid #E8E1D6;
+}
+
+.portfolio-skills .skills-card-soft .skills-card-heading {
+    padding-right: 2rem;
+}
+
+.portfolio-skills .skills-category-copy {
+    min-width: 0;
+}
+
+.portfolio-skills .skills-category {
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.portfolio-skills .skills-category-description {
+    margin: 0.4rem 0 0;
+    font-size: 0.85rem;
+    color: #62625A;
+    line-height: 1.65;
+}
+
+.portfolio-skills .skills-category-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 3rem;
+    height: 3rem;
+    border-radius: 0.8rem;
+    background: #F2E1D8;
+    color: #A64F39;
+}
+
+.portfolio-skills .skills-category-icon > * {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.portfolio-skills .skills-card-tools .skills-category-icon,
+.portfolio-skills .skills-card-soft .skills-category-icon {
+    background: #E6EADF;
+    color: #59664F;
+}
+
+.portfolio-skills .skills-category span,
+.portfolio-skills .skills-name,
+.portfolio-skills .skills-level {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.portfolio-skills .skills-items {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.portfolio-skills .skills-sticker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.65rem;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem 0.85rem;
+    background: #FFFCF8;
+    border: 1px solid #E8E1D6;
+    border-radius: 0.65rem;
+    box-shadow: 0 2px 3px rgba(39, 39, 34, 0.025);
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+.portfolio-skills .skills-item-icon {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 1rem;
+    color: #78856D;
+}
+
+.portfolio-skills .skills-name {
+    flex: 1 1 6rem;
+    font-weight: 600;
+}
+
+.portfolio-skills .skills-level {
+    margin-left: auto;
+    color: #50504A;
+    background: #EEEAE2;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    box-sizing: border-box;
+}
+
+.portfolio-skills .skills-level-basic {
+    background: #E6EADF;
+    color: #4D5C45;
+}
+
+.portfolio-skills .skills-level-intermediate {
+    background: #F1E6CF;
+    color: #705A32;
+}
+
+.portfolio-skills .skills-level-advanced {
+    background: #F2DED4;
+    color: #91432F;
+}
+
+.portfolio-skills .skills-empty {
+    margin: 0;
+    padding: 2rem;
+    border: 1px dashed #CFC5B5;
+    border-radius: 3px;
+    background: #FFFCF8;
+    color: #50504A;
+    font-size: 0.95rem;
+    line-height: 1.75;
+}
+
+@media (min-width: 640px) {
+    .portfolio-skills .skills-board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .portfolio-skills .skills-board {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .portfolio-skills .skills-card {
+        grid-column: span 2;
+    }
+
+    .portfolio-skills .skills-card:nth-child(3n + 1):nth-last-child(2),
+    .portfolio-skills .skills-card:nth-child(3n + 1):nth-last-child(2) ~ .skills-card {
+        grid-column: span 3;
+    }
+
+    .portfolio-skills .skills-card:last-child:nth-child(3n + 1) {
+        grid-column: span 6;
+    }
+}
+
+@media (max-width: 639px) {
+    .portfolio-skills .skills-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .portfolio-skills .skills-card::before {
+        transform: none;
+    }
+
+    .portfolio-skills .skills-botanical {
+        width: 2rem;
+        height: 2.5rem;
+        opacity: 0.16;
+    }
+}

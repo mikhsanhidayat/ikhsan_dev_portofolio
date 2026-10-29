@@ -25,7 +25,7 @@
                     <label for="headline" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Headline Profil <span class="text-red-500">*</span></label>
                     <input type="text" name="headline" id="headline" required value="<?= e($profile['headline']) ?>"
                         class="block w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Contoh: Mahasiswa D3 Manajemen Informatika">
+                        placeholder="Contoh: Fullstack Developer">
                 </div>
             </div>
 

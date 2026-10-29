@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raka Pratama — Minimalist Retro Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Space Grotesk, Fraunces (Retro Serif), JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=JetBrains+Mono:ital,wght@0,400..800;1,400..800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        serif: ['Fraunces', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        retro: {
+                            bg: 'var(--bg-color)',
+                            card: 'var(--card-color)',
+                            text: 'var(--text-color)',
+                            accent: 'var(--accent-color)',
+                            secondary: 'var(--secondary-color)',
+                            border: 'var(--border-color)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-color: #F4EFE6;
+            --card-color: #FFFDF9;
+            --text-color: #1C1B18;
+            --accent-color: #FF5A36;
+            --secondary-color: #E6DEC8;
+            --border-color: #1C1B18;
+        }
+
+        [data-theme="matcha"] {
+            --bg-color: #E8EFE6;
+            --card-color: #F9FBF9;
+            --text-color: #162619;
+            --accent-color: #3B7A57;
+            --secondary-color: #D2E0CE;
+            --border-color: #162619;
+        }
+
+        [data-theme="cyber95"] {
+            --bg-color: #16161A;
+            --card-color: #242629;
+            --text-color: #FFFFFE;
+            --accent-color: #7F5AF0;
+            --secondary-color: #2CB67D;
+            --border-color: #FFFFFE;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+        }
+
+        /* Subtle Dot Grid Background */
+        .bg-grid {
+            background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 24px 24px;
+            background-position: -1px -1px;
+        }
+
+        /* Retro Brutalist Shadow & Borders */
+        .retro-border {
+            border: 2px solid var(--border-color);
+        }
+
+        .retro-shadow {
+            box-shadow: 5px 5px 0px var(--border-color);
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .retro-shadow-sm {
+            box-shadow: 3px 3px 0px var(--border-color);
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .retro-shadow-hover:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0px var(--border-color);
+        }
+
+        .retro-btn:active {
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px 0px var(--border-color);
+        }
+
+        /* Film Grain Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.035;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 22s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        /* Vinyl Spin Animation */
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .spin-vinyl {
+            animation: spin-slow 6s linear infinite;
+            animation-play-state: paused;
+        }
+        .spin-vinyl.playing {
+            animation-play-state: running;
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Cursor (Desktop Only) */
+        @media (pointer: fine) {
+            .custom-cursor {
+                width: 20px;
+                height: 20px;
+                border: 2px solid var(--border-color);
+                background-color: var(--accent-color);
+                border-radius: 50%;
+                position: fixed;
+                pointer-events: none;
+                z-index: 10000;
+                transform: translate(-50%, -50%);
+                transition: width 0.2s, height 0.2s, background-color 0.2s, transform 0.08s ease-out;
+                mix-blend-mode: normal;
+            }
+            .custom-cursor.hovered {
+                width: 44px;
+                height: 44px;
+                background-color: transparent;
+                border-width: 2px;
+                border-style: dashed;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-retro-accent selection:text-white">
+
+    <!-- Noise Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor" class="custom-cursor hidden md:block"></div>
+
+    <!-- Top OS Status Bar -->
+    <div class="w-full retro-border border-t-0 border-x-0 bg-retro-secondary px-4 py-1.5 text-xs font-mono flex flex-wrap justify-between items-center gap-2 sticky top-0 z-50">
+        <div class="flex items-center gap-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-green-500 border border-retro-border animate-pulse"></span>
+            <span class="font-bold">RAKA_OS v2.6</span>
+            <span class="hidden sm:inline text-retro-text/70">| STATUS: TERSEDIA UNTUK PROYEK FREELANCE</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <!-- Theme Switcher -->
+            <div class="flex items-center gap-1.5">
+                <span class="hidden md:inline">TEMA:</span>
+                <button onclick="setTheme('default')" title="Classic Cream" class="w-4 h-4 rounded-full bg-[#FF5A36] border border-black hover:scale-125 transition-transform"></button>
+                <button onclick="setTheme('matcha')" title="Retro Matcha" class="w-4 h-4 rounded-full bg-[#3B7A57] border border-black hover:scale-125 transition-transform"></button>
+                <button onclick="setTheme('cyber95')" title="Cyber 95 Dark" class="w-4 h-4 rounded-full bg-[#7F5AF0] border border-white hover:scale-125 transition-transform"></button>
+            </div>
+            <span id="live-clock" class="font-bold">00:00:00 WIB</span>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-4">
+        <nav class="bg-retro-card retro-border retro-shadow rounded-xl px-4 sm:px-6 py-3.5 flex justify-between items-center">
+            <a href="#" class="font-serif font-black text-xl sm:text-2xl tracking-tight flex items-center gap-2 group">
+                <span class="w-8 h-8 rounded-lg bg-retro-accent text-white retro-border flex items-center justify-center font-mono text-base group-hover:rotate-12 transition-transform">R</span>
+                <span>Raka.dev</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-6 font-mono text-sm">
+                <a href="#about" class="hover:text-retro-accent hover:underline decoration-2 underline-offset-4 transition-all">01.Tentang</a>
+                <a href="#projects" class="hover:text-retro-accent hover:underline decoration-2 underline-offset-4 transition-all">02.Karya</a>
+                <a href="#experience" class="hover:text-retro-accent hover:underline decoration-2 underline-offset-4 transition-all">03.Jejak</a>
+                <a href="#contact" class="bg-retro-accent text-white px-4 py-2 rounded-lg retro-border retro-shadow-sm retro-btn font-bold hover:-translate-y-0.5 transition-all">
+                    Hubungi Saya ↗
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden w-10 h-10 rounded-lg bg-retro-secondary retro-border flex items-center justify-center text-xl">
+                <i class="ph-bold ph-list"></i>
+            </button>
+        </nav>
+
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden mt-2 bg-retro-card retro-border retro-shadow rounded-xl p-4 font-mono text-sm flex-col gap-3">
+            <a href="#about" class="mobile-link py-2 border-b border-retro-border/20 block">01. Tentang</a>
+            <a href="#projects" class="mobile-link py-2 border-b border-retro-border/20 block">02. Karya Pilihan</a>
+            <a href="#experience" class="mobile-link py-2 border-b border-retro-border/20 block">03. Pengalaman</a>
+            <a href="#contact" class="mobile-link py-2.5 mt-1 bg-retro-accent text-white text-center rounded-lg retro-border font-bold block">Hubungi Saya ↗</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-20">
+
+        <!-- HERO SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-4">
+            <!-- Left Content -->
+            <div class="lg:col-span-7 space-y-6 reveal active">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-retro-secondary retro-border font-mono text-xs">
+                    <i class="ph-fill ph-sparkle text-retro-accent"></i>
+                    <span>CREATIVE DEVELOPER & UI DESIGNER</span>
+                </div>
+
+                <h1 class="font-serif text-4xl sm:text-6xl font-black leading-[1.08] tracking-tight">
+                    Merancang web <span class="italic font-normal underline decoration-retro-accent decoration-wavy decoration-2">minimalis</span> dengan jiwa <span class="bg-retro-accent text-white px-3 py-0.5 rounded-lg retro-border inline-block -rotate-1">klasik.</span>
+                </h1>
+
+                <p class="text-base sm:text-lg text-retro-text/80 max-w-xl leading-relaxed">
+                    Halo! Saya <strong>Raka Pratama</strong>. Pengembang web dari Bandung yang memadukan estetika retro 90-an dengan performa teknologi modern yang cepat, bersih, dan interaktif.
+                </p>
+
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <a href="#projects" class="px-6 py-3.5 rounded-xl bg-retro-accent text-white font-mono font-bold text-sm retro-border retro-shadow retro-shadow-hover retro-btn flex items-center gap-2">
+                        <span>Lihat Karya</span>
+                        <i class="ph-bold ph-arrow-down-right"></i>
+                    </a>
+                    <a href="#contact" class="px-6 py-3.5 rounded-xl bg-retro-card font-mono font-bold text-sm retro-border retro-shadow retro-shadow-hover retro-btn flex items-center gap-2">
+                        <i class="ph-bold ph-terminal-window"></i>
+                        <span>Ajak Kolaborasi</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Interactive Retro Window Card -->
+            <div class="lg:col-span-5 reveal active">
+                <div id="hero-card" class="bg-retro-card retro-border retro-shadow rounded-2xl overflow-hidden transition-transform duration-200 ease-out">
+                    <!-- Window Title Bar -->
+                    <div class="bg-retro-secondary border-b-2 border-retro-border px-4 py-2.5 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-[#FF5F56] border border-black"></span>
+                            <span class="w-3 h-3 rounded-full bg-[#FFBD2E] border border-black"></span>
+                            <span class="w-3 h-3 rounded-full bg-[#27C93F] border border-black"></span>
+                        </div>
+                        <span class="font-mono text-xs font-bold tracking-wider">PROFIL_RAKA.EXE</span>
+                        <i class="ph-bold ph-arrows-out-simple text-xs"></i>
+                    </div>
+
+                    <!-- Window Body -->
+                    <div class="p-6 space-y-5 bg-grid">
+                        <!-- Avatar & Vinyl Widget -->
+                        <div class="flex flex-col sm:flex-row items-center gap-5 bg-retro-card p-4 rounded-xl retro-border">
+                            <!-- Retro Avatar SVG -->
+                            <div class="relative w-24 h-24 rounded-xl bg-retro-accent retro-border overflow-hidden shrink-0 flex items-center justify-center">
+                                <svg viewBox="0 0 100 100" class="w-20 h-20">
+                                    <circle cx="50" cy="40" r="22" fill="#FFFDF9" stroke="#1C1B18" stroke-width="4"/>
+                                    <path d="M18 95 C18 65, 82 65, 82 95" fill="#FFFDF9" stroke="#1C1B18" stroke-width="4"/>
+                                    <!-- Retro Glasses -->
+                                    <rect x="34" y="32" width="14" height="10" rx="2" fill="#1C1B18"/>
+                                    <rect x="52" y="32" width="14" height="10" rx="2" fill="#1C1B18"/>
+                                    <line x1="48" y1="36" x2="52" y2="36" stroke="#1C1B18" stroke-width="3"/>
+                                    <!-- Smile -->
+                                    <path d="M43 48 Q50 54 57 48" fill="none" stroke="#1C1B18" stroke-width="3" stroke-linecap="round"/>
+                                </svg>
+                                <span class="absolute bottom-1 right-1 bg-green-400 text-black font-mono text-[9px] font-bold px-1.5 rounded border border-black">LVL.99</span>
+                            </div>
+
+                            <div class="space-y-1 text-center sm:text-left">
+                                <div class="font-mono text-xs text-retro-accent font-bold">@rakapratama</div>
+                                <h2 class="font-serif font-bold text-xl">Fullstack Artisan</h2>
+                                <p class="font-mono text-xs text-retro-text/70">📍 Bandung, ID</p>
+                                <div class="pt-1 flex flex-wrap justify-center sm:justify-start gap-1.5">
+                                    <span class="px-2 py-0.5 text-[10px] font-mono bg-retro-secondary rounded border border-retro-border">React</span>
+                                    <span class="px-2 py-0.5 text-[10px] font-mono bg-retro-secondary rounded border border-retro-border">TypeScript</span>
+                                    <span class="px-2 py-0.5 text-[10px] font-mono bg-retro-secondary rounded border border-retro-border">UI/UX</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Retro Vinyl Player -->
+                        <div class="bg-retro-card p-3.5 rounded-xl retro-border flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div id="vinyl-disc" class="w-12 h-12 rounded-full bg-zinc-900 border-2 border-retro-border flex items-center justify-center spin-vinyl shrink-0 relative">
+                                    <div class="w-4 h-4 rounded-full bg-retro-accent border border-white"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-black absolute"></div>
+                                </div>
+                                <div>
+                                    <div class="font-mono text-[10px] uppercase tracking-wider text-retro-text/60">Lofi Synth Mix</div>
+                                    <div id="track-status" class="font-bold text-xs truncate max-w-[140px]">8-Bit Coffee Shop</div>
+                                </div>
+                            </div>
+                            <button id="play-music-btn" onclick="toggleRetroSound()" class="px-3 py-2 rounded-lg bg-retro-secondary hover:bg-retro-accent hover:text-white retro-border font-mono text-xs font-bold flex items-center gap-1.5 transition-colors">
+                                <i id="play-icon" class="ph-fill ph-play"></i>
+                                <span id="play-text">PLAY</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MARQUEE BANNER -->
+        <div class="w-full overflow-hidden bg-retro-secondary retro-border retro-shadow-sm rounded-xl py-3">
+            <div class="animate-marquee font-mono text-sm font-bold flex items-center gap-8">
+                <span>✦ FRONTEND ARCHITECTURE</span>
+                <span>✦ CREATIVE CODING</span>
+                <span>✦ RETRO MINIMALISM</span>
+                <span>✦ INTERACTIVE ANIMATIONS</span>
+                <span>✦ DESIGN SYSTEMS</span>
+                <span>✦ WEB PERFORMANCE</span>
+                <!-- Duplicate for seamless loop -->
+                <span>✦ FRONTEND ARCHITECTURE</span>
+                <span>✦ CREATIVE CODING</span>
+                <span>✦ RETRO MINIMALISM</span>
+                <span>✦ INTERACTIVE ANIMATIONS</span>
+                <span>✦ DESIGN SYSTEMS</span>
+                <span>✦ WEB PERFORMANCE</span>
+            </div>
+        </div>
+
+        <!-- ABOUT & SKILLS SECTION -->
+        <section id="about" class="scroll-mt-20 space-y-8 reveal">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-2 border-retro-border pb-4">
+                <div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-retro-accent font-bold">// 01. TENTANG SAYA</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-black mt-1">Filosofi & Perangkat Kerja</h2>
+                </div>
+                <span class="font-mono text-xs bg-retro-card px-3 py-1.5 rounded-lg retro-border self-start sm:self-auto">SYS_INFO: 5+ TAHUN PENGALAMAN</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Bio Box -->
+                <div class="md:col-span-2 bg-retro-card retro-border retro-shadow rounded-2xl p-6 sm:p-8 space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <h3 class="font-serif text-2xl font-bold">Membangun web yang punya karakter, bukan sekadar template.</h3>
+                        <p class="text-retro-text/80 leading-relaxed">
+                            Di era di mana hampir semua website terlihat seragam, saya percaya bahwa sentuhan personal, mikro-interaksi yang hangat, dan tipografi yang tegas dapat membuat produk digital jauh lebih berkesan di hati pengguna.
+                        </p>
+                        <p class="text-retro-text/80 leading-relaxed">
+                            Pendekatan saya menggabungkan kerapian ruang kosong (*minimalism*) dengan keberanian garis serta warna ala majalah cetak dan sistem operasi klasik 90-an.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t-2 border-dashed border-retro-border/30 font-mono">
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-black text-retro-accent">42+</div>
+                            <div class="text-xs text-retro-text/70">Proyek Selesai</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-black text-retro-accent">99%</div>
+                            <div class="text-xs text-retro-text/70">Skor Lighthouse</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-black text-retro-accent">∞</div>
+                            <div class="text-xs text-retro-text/70">Cangkir Kopi</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Diskette Card -->
+                <div class="bg-retro-card retro-border retro-shadow rounded-2xl p-6 space-y-4">
+                    <div class="flex items-center justify-between border-b-2 border-retro-border pb-3">
+                        <span class="font-mono font-bold text-sm flex items-center gap-2">
+                            <i class="ph-fill ph-floppy-disk text-retro-accent text-lg"></i>
+                            SKILL_SET.DAT
+                        </span>
+                        <span class="font-mono text-xs text-retro-text/60">1.44 MB</span>
+                    </div>
+
+                    <div class="space-y-3 font-mono text-xs">
+                        <div>
+                            <div class="flex justify-between mb-1 font-bold">
+                                <span>JavaScript / TypeScript</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="w-full h-3 bg-retro-secondary rounded-full retro-border overflow-hidden p-0.5">
+                                <div class="bg-retro-accent h-full rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1 font-bold">
+                                <span>React / Next.js / Vue</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="w-full h-3 bg-retro-secondary rounded-full retro-border overflow-hidden p-0.5">
+                                <div class="bg-retro-accent h-full rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1 font-bold">
+                                <span>Tailwind & CSS Art</span>
+                                <span>98%</span>
+                            </div>
+                            <div class="w-full h-3 bg-retro-secondary rounded-full retro-border overflow-hidden p-0.5">
+                                <div class="bg-retro-accent h-full rounded-full" style="width: 98%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1 font-bold">
+                                <span>Node.js & PostgreSQL</span>
+                                <span>82%</span>
+                            </div>
+                            <div class="w-full h-3 bg-retro-secondary rounded-full retro-border overflow-hidden p-0.5">
+                                <div class="bg-retro-accent h-full rounded-full" style="width: 82%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <div class="p-3 rounded-xl bg-retro-secondary/60 border border-retro-border font-mono text-[11px] leading-relaxed">
+                            <span class="text-retro-accent font-bold">&gt; Tip:</span> Klik tombol warna di pojok kanan atas layar untuk mengganti suasana tema retro!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="scroll-mt-20 space-y-8 reveal">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-2 border-retro-border pb-4">
+                <div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-retro-accent font-bold">// 02. ARSIP KARYA</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-black mt-1">Proyek Pilihan</h2>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap gap-2 font-mono text-xs">
+                    <button onclick="filterProjects('all')" class="filter-btn active px-3.5 py-1.5 rounded-lg retro-border bg-retro-accent text-white font-bold transition-all">Semua</button>
+                    <button onclick="filterProjects('web')" class="filter-btn px-3.5 py-1.5 rounded-lg retro-border bg-retro-card hover:bg-retro-secondary transition-all">Web App</button>
+                    <button onclick="filterProjects('ui')" class="filter-btn px-3.5 py-1.5 rounded-lg retro-border bg-retro-card hover:bg-retro-secondary transition-all">UI/Design</button>
+                    <button onclick="filterProjects('eksperimen')" class="filter-btn px-3.5 py-1.5 rounded-lg retro-border bg-retro-card hover:bg-retro-secondary transition-all">Eksperimen</button>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Project 1 -->
+                <article data-category="web" class="project-card bg-retro-card retro-border retro-shadow retro-shadow-hover rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="bg-retro-secondary border-b-2 border-retro-border px-4 py-2 flex justify-between items-center font-mono text-xs">
+                            <span class="font-bold">01_KASETKU_STORE.APP</span>
+                            <span class="px-2 py-0.5 bg-retro-card rounded border border-retro-border text-[10px]">2026</span>
+                        </div>
+                        <!-- Custom Retro Illustration Preview -->
+                        <div class="h-48 bg-[#FFEDD5] border-b-2 border-retro-border p-6 flex items-center justify-center relative overflow-hidden group">
+                            <div class="w-56 h-32 bg-retro-card retro-border retro-shadow-sm rounded-xl p-3 flex flex-col justify-between group-hover:scale-105 group-hover:-rotate-2 transition-transform">
+                                <div class="flex justify-between items-center border-b border-black pb-1">
+                                    <span class="font-mono text-[10px] font-bold text-black">SIDE A // 90 MIN</span>
+                                    <i class="ph-fill ph-cassette-tape text-retro-accent"></i>
+                                </div>
+                                <div class="flex justify-around items-center py-2 bg-retro-secondary rounded border border-black">
+                                    <div class="w-7 h-7 rounded-full bg-white border-2 border-black flex items-center justify-center"><div class="w-2 h-2 bg-black rounded-full"></div></div>
+                                    <div class="w-12 h-4 bg-black/80 rounded"></div>
+                                    <div class="w-7 h-7 rounded-full bg-white border-2 border-black flex items-center justify-center"><div class="w-2 h-2 bg-black rounded-full"></div></div>
+                                </div>
+                                <div class="text-[9px] font-mono text-center text-black font-bold">INDIE ARCHIVE MARKETPLACE</div>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex gap-2 font-mono text-[11px]">
+                                <span class="px-2 py-0.5 bg-retro-secondary rounded border border-retro-border">Next.js</span>
+                                <span class="px-2 py-0.5 bg-retro-secondary rounded border border-retro-border">Stripe</span>
+                                <span class="px-2 py-0.5 bg-retro-secondary rounded border border-retro-border">Web Audio API</span>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold">KasetKu — Pasar Musik Fisik & Indie</h3>
+                            <p class="text-sm text-retro-text/80 leading-relaxed">
+                                Platform e-commerce kurasi kaset pita dan piringan hitam rilisan musisi lokal dengan fitur pratinjau audio bergaya walkman analog.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 flex justify-between items-center">
+                        <button onclick="openModal('KasetKu — Pasar Musik Fisik', 'Platform jual-beli rilisan musik fisik dengan fokus pada pengalaman mendengarkan cuplikan lagu secara interaktif. Dilengkapi dengan visualisasi gelombang suara real-time dan sistem manajemen inventori instan untuk label indie.', 'Next.js, Tailwind, Supabase, Web Audio API', 'https://example.com')" class="font-mono text-xs font-bold underline decoration-2 underline-offset-4 hover:text-retro-accent">
+                            Baca Studi Kasus &rarr;
+                        </button>
+                        <a href="#projects" onclick="openModal('KasetKu — Pasar Musik Fisik', 'Platform jual-beli rilisan musik fisik dengan fokus pada pengalaman mendengarkan cuplikan lagu secara interaktif.', 'Next.js, Tailwind, Supabase', 'https://example.com')" class="w-9 h-9 rounded-lg bg-retro-accent text-white retro-border flex items-center justify-center hover:rotate-12 transition-transform">
+                            <i class="ph-bold ph-arrow-up-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article data-category="ui" class="project-card bg-retro-card retro-border retro-shadow retro-shadow-hover rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="bg-retro-secondary border-b-2 border-retro-border px-4 py-2 flex justify-between items-center font-mono text-xs">
+                            <span class="font-bold">02_MONO_NOTES.SYS</span>
+                            <span class="px-2 py-0.5 bg-retro-card rounded border border-retro-border text-[10px]">2025</span>
+                        </div>
+                        <div class="h-48 bg-[#E0F2FE] border-b-2 border-retro-border p-6 flex items-center justify-center relative overflow-hidden group">
+                            <div class="w-56 h-32 bg-retro-card retro-border retro-shadow-sm rounded-xl p-3 flex flex-col justify-between group-hover:scale-105 group-hover:rotate-2 transition-transform text-black">
+                                <div class="flex gap-1.5 items-center border-b border-black pb-1.5">
+                                    <div class="w-2 h-2 rounded-full bg-black"></div>
+                                    <span class="font-mono text-[9px] font-bold">catatan_harian.md</span>
+                                </div>
+                                <div class="font-mono text-[10px] space-y-1">
+                                    <p class="font-bold text-retro-accent"># Ide Proyek Baru</p>
+                                    <p class="text-black/70">- [x] Riset tipografi</p>
+                                    <p class="text-black/70">- [ ] Buat prototipe</p>
+                                </div>
+                                <div class="text-[9px] font-mono text-right text-black/50">LN 12, COL 4</div>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex gap-2 font-mono text-[11px]">
+                                <span class="px-2 py-0.5 bg-retro-secondary rounded border border-retro-border">Figma</span>
+                                <span class="px-2 py-0.5 bg-retro-secondary rounded border border-retro-border">React</span>
+                                <span class="px-2 py-0.5 bg-retro-secondary rounded border border-retro-border">LocalFirst</span>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold">MonoNotes — Aplikasi Catatan Bebas Distraksi</h3>
+                            <p class="text-sm text-retro-text/80 leading-relaxed">
+                                Editor Markdown minimalis terinspirasi mesin ketik klasik dengan suara tombol mekanik opsional dan sinkronisasi offline penuh.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 flex justify-between items-center">
+                        <button onclick="openModal('MonoNotes — Editor Bebas Distraksi', 'Dirancang khusus untuk penulis dan developer yang merindukan fokus penuh. Tanpa notifikasi, hanya kanvas bersih dengan rasio kontras tipografi yang nyaman di mata serta pintasan keyboard penuh.', 'React, IndexedDB, Tailwind CSS, Design System', 'https://example.com')" class="font-mono text-xs font-bold underline decoration-2 underline-offset-4 hover:text-retro-accent">
+                            Baca Studi Kasus &rarr;
+                        </button>
+                        <a href="#projects" onclick="openModal('MonoNotes — Editor Bebas Distraksi', 'Dirancang khusus untuk penulis dan developer yang merindukan fokus penuh.', 'React, IndexedDB, Tailwind CSS', 'https://example.com')" class="w-9 h-9 rounded-lg bg-retro-accent text-white retro-border flex items-center justify-center hover:rotate-12 transition-transform">
+                            <i class="ph-bold ph-arrow-up-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article data-category="eksperimen" class="project-card bg-retro-card retro-border retro-shadow retro-shadow-hover rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="bg-retro-secondary border-b-2 border-retro-border px-4 py-2 flex justify-between items-center font-mono text-xs">
+                            <span class="font-bold">03_PIXEL_SYNTH.EXE</span>
+                            <span class="px-2 py-0.5 bg-retro-card rounded border border-retro-border text-[10px]">2025</span>
+                        </div>
+                        <div class="h-48 bg-[#DCFCE7] border-b-2 border-retro-border p-6 flex items-center justify-center relative overflow-hidden group">
+                            <div class="w-56 h-32 bg-retro-card retro-border retro-shadow-sm rounded-xl p-3 flex flex-col justify-between group-hover:scale-105 group-hover:-rotate-1 transition-transform text-black">
+                                <div class="flex justify-between font-mono text-[9px] font-bold">
+                                    <span>OSC: SQUARE</span>
+                                    <span class="text-green-600">● 120 BPM</span>
+                                </div>
+                                <div class="grid grid-cols-8 gap-1 h-14 items-end pt-2">
+                                    <div class="bg-retro-accent h-4 border border-black"></div>
+                                    <div class="bg-retro-accent h-8 border border-black"></div>
+                                    <div class="bg-retro-accent h-12 border border-black"></div>
+                                    <div class="bg-retro-accent h-6 border border-black"></div>
+                                    <div class="bg-retro-accent h-10 border border-black"></div>
+                                    <div class="bg-retro-accent h-14 border border-black"></div>
+                                    <div class="bg-retro-accent h-7 border border-black"></div>
+                                    <div class="bg-retro-accent h-5 border border-black"></div>
+                                </div>
+                                <div class="grid grid-cols-4 gap-1">
+                                    <div class="h-2 bg-black rounded-sm"></div>
+                                    <div class="h-2 bg-black/30 rounded-sm"></div>
+                                    <div class="h-2 bg-black/30 rounded-sm"></div>
+                                    <div class="h-2 bg-black rounded-sm"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex gap-2 font-mono text-[11px]">
+                                <span class="px-2 py-0.5 bg-retro-secondary rounded border border-retro-border">Canvas 2D</span>
+                                <span class="px-2 py-0.5 bg-retro-secondary rounded border border-retro-border">Tone.js</span>
+                                <span class="px-2 py-0.5 bg-retro-secondary rounded border border-retro-border">Vanilla JS</span>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold">PixelSynth — Sequencer Musik 8-Bit di Browser</h3>
+                            <p class="text-sm text-retro-text/80 leading-relaxed">
+                                Eksperimen synthesizer interaktif berbasis web untuk membuat melodi chiptune ala konsol game klasik langsung dari browser.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 flex justify-between items-center">
+                        <button onclick="openModal('PixelSynth — Sequencer 8-Bit', 'Sebuah eksperimen kreatif menggabungkan sintesis audio dengan visualisasi piksel interaktif. Pengguna dapat menyusun ketukan drum dan melodi synth lalu mengekspornya sebagai tautan yang bisa dibagikan.', 'HTML5 Canvas, Web Audio API, Vanilla JS', 'https://example.com')" class="font-mono text-xs font-bold underline decoration-2 underline-offset-4 hover:text-retro-accent">
+                            Baca Studi Kasus &rarr;
+                        </button>
+                        <a href="#projects" onclick="openModal('PixelSynth — Sequencer 8-Bit', 'Sebuah eksperimen kreatif menggabungkan sintesis audio dengan visualisasi piksel interaktif.', 'HTML5 Canvas, Web Audio API', 'https://example.com')" class="w-9 h-9 rounded-lg bg-retro-accent text-white retro-border flex items-center justify-center hover:rotate-12 transition-transform">
+                            <i class="ph-bold ph-arrow-up-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 4 -->
+                <article data-category="web" class="project-card bg-retro-card retro-border retro-shadow retro-shadow-hover rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="bg-retro-secondary border-b-2 border-retro-border px-4 py-2 flex justify-between items-center font-mono text-xs">
+                            <span class="font-bold">04_KOPI_KULTUR.WEB</span>
+                            <span class="px-2 py-0.5 bg-retro-card rounded border border-retro-border text-[10px]">2024</span>
+                        </div>
+                        <div class="h-48 bg-[#FCE7F3] border-b-2 border-retro-border p-6 flex items-center justify-center relative overflow-hidden group">
+                            <div class="w-56 h-32 bg-retro-card retro-border retro-shadow-sm rounded-xl p-3 flex flex-col justify-between group-hover:scale-105 group-hover:rotate-1 transition-transform text-black">
+                                <div class="font-serif font-black text-sm border-b border-black pb-1 flex justify-between items-center">
+                                    <span>ROASTERY CO.</span>
+                                    <span class="font-mono text-[9px] bg-retro-accent text-white px-1.5 rounded">EST. 98</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-amber-800 border border-black flex items-center justify-center text-white">
+                                        <i class="ph-fill ph-coffee"></i>
+                                    </div>
+                                    <div class="font-mono text-[10px]">
+                                        <div class="font-bold">Java Preanger</div>
+                                        <div class="text-black/60">Notes: Caramel, Citrus</div>
+                                    </div>
+                                </div>
+                                <div class="text-[9px] font-mono bg-retro-secondary px-2 py-0.5 rounded border border-black text-center font-bold">PANDUAN SEDUH INTERAKTIF</div>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex gap-2 font-mono text-[11px]">
+                                <span class="px-2 py-0.5 bg-retro-secondary rounded border border-retro-border">Astro</span>
+                                <span class="px-2 py-0.5 bg-retro-secondary rounded border border-retro-border">Tailwind</span>
+                                <span class="px-2 py-0.5 bg-retro-secondary rounded border border-retro-border">GSAP</span>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold">KopiKultur — Roastery & Kalkulator Seduh V60</h3>
+                            <p class="text-sm text-retro-text/80 leading-relaxed">
+                                Website storytelling untuk roastery lokal lengkap dengan fitur timer & kalkulator rasio seduh kopi manual secara real-time.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 flex justify-between items-center">
+                        <button onclick="openModal('KopiKultur — Roastery & Kalkulator Seduh', 'Website interaktif yang membantu pelanggan menghitung takaran gramasi kopi dan air beserta panduan waktu tuang (pour-over timer) langkah demi langkah dengan estetika kemasan kopi klasik.', 'Astro, GSAP, Tailwind CSS', 'https://example.com')" class="font-mono text-xs font-bold underline decoration-2 underline-offset-4 hover:text-retro-accent">
+                            Baca Studi Kasus &rarr;
+                        </button>
+                        <a href="#projects" onclick="openModal('KopiKultur — Roastery & Kalkulator Seduh', 'Website interaktif yang membantu pelanggan menghitung takaran gramasi kopi dan air.', 'Astro, GSAP, Tailwind CSS', 'https://example.com')" class="w-9 h-9 rounded-lg bg-retro-accent text-white retro-border flex items-center justify-center hover:rotate-12 transition-transform">
+                            <i class="ph-bold ph-arrow-up-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- EXPERIENCE TIMELINE -->
+        <section id="experience" class="scroll-mt-20 space-y-8 reveal">
+            <div class="border-b-2 border-retro-border pb-4">
+                <span class="font-mono text-xs uppercase tracking-widest text-retro-accent font-bold">// 03. LOG PERJALANAN</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-black mt-1">Pengalaman & Karir</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Exp 1 -->
+                <div class="bg-retro-card retro-border retro-shadow-sm hover:translate-x-1 transition-transform rounded-xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 bg-retro-accent text-white font-mono text-xs font-bold rounded border border-retro-border">2024 — SEKARANG</span>
+                            <span class="font-mono text-xs text-retro-text/60">• Full-time</span>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold pt-1">Senior Frontend Engineer — Studio Piksel Nusantara</h3>
+                        <p class="text-sm text-retro-text/80 max-w-2xl">Memimpin pengembangan sistem desain dan arsitektur antarmuka untuk belasan klien produk digital di Asia Tenggara.</p>
+                    </div>
+                    <div class="font-mono text-xs bg-retro-secondary px-3 py-1.5 rounded-lg retro-border self-start sm:self-center shrink-0">
+                        Jakarta / Remote
+                    </div>
+                </div>
+
+                <!-- Exp 2 -->
+                <div class="bg-retro-card retro-border retro-shadow-sm hover:translate-x-1 transition-transform rounded-xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 bg-retro-secondary font-mono text-xs font-bold rounded border border-retro-border">2022 — 2024</span>
+                            <span class="font-mono text-xs text-retro-text/60">• Full-time</span>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold pt-1">UI/UX Developer — Kreasi Digital Lab</h3>
+                        <p class="text-sm text-retro-text/80 max-w-2xl">Menerjemahkan desain berfokus mikro-interaksi menjadi komponen React yang aksesibel dan super ringan.</p>
+                    </div>
+                    <div class="font-mono text-xs bg-retro-secondary px-3 py-1.5 rounded-lg retro-border self-start sm:self-center shrink-0">
+                        Bandung, ID
+                    </div>
+                </div>
+
+                <!-- Exp 3 -->
+                <div class="bg-retro-card retro-border retro-shadow-sm hover:translate-x-1 transition-transform rounded-xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 bg-retro-secondary font-mono text-xs font-bold rounded border border-retro-border">2020 — 2022</span>
+                            <span class="font-mono text-xs text-retro-text/60">• Freelance</span>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold pt-1">Independent Web Designer & Developer</h3>
+                        <p class="text-sm text-retro-text/80 max-w-2xl">Membangun identitas web kustom untuk brand kreatif, kedai kopi, dan studio independen.</p>
+                    </div>
+                    <div class="font-mono text-xs bg-retro-secondary px-3 py-1.5 rounded-lg retro-border self-start sm:self-center shrink-0">
+                        Worldwide
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="scroll-mt-20 reveal">
+            <div class="bg-retro-card retro-border retro-shadow rounded-2xl overflow-hidden">
+                <!-- Window Header -->
+                <div class="bg-retro-secondary border-b-2 border-retro-border px-4 py-2.5 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="ph-fill ph-envelope-simple text-retro-accent"></i>
+                        <span class="font-mono text-xs font-bold">KIRIM_PESAN.SH</span>
+                    </div>
+                    <span class="font-mono text-[11px]">PORT: 8080</span>
+                </div>
+
+                <div class="p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-6 space-y-4">
+                        <span class="font-mono text-xs uppercase tracking-widest text-retro-accent font-bold">// 04. KONTAK</span>
+                        <h2 class="font-serif text-3xl sm:text-5xl font-black leading-tight">Mari buat sesuatu yang ikonik.</h2>
+                        <p class="text-retro-text/80 leading-relaxed">
+                            Punya ide proyek menarik, butuh perombakan UI, atau sekadar ingin berdiskusi soal musik retro dan teknologi web? Kotak surat saya selalu terbuka!
+                        </p>
+
+                        <!-- Copy Email Box -->
+                        <div class="pt-2">
+                            <div class="inline-flex items-center gap-2 p-2 rounded-xl bg-retro-secondary retro-border">
+                                <span id="email-text" class="font-mono text-xs sm:text-sm font-bold px-2">halo@rakapratama.dev</span>
+                                <button onclick="copyEmail()" class="px-3 py-1.5 bg-retro-card hover:bg-retro-accent hover:text-white rounded-lg retro-border font-mono text-xs font-bold transition-colors flex items-center gap-1">
+                                    <i class="ph-bold ph-copy"></i>
+                                    <span id="copy-label">Salin</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="flex gap-3 pt-2">
+                            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-retro-card hover:bg-retro-accent hover:text-white retro-border retro-shadow-sm flex items-center justify-center text-lg transition-colors" title="GitHub">
+                                <i class="ph-bold ph-github-logo"></i>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-retro-card hover:bg-retro-accent hover:text-white retro-border retro-shadow-sm flex items-center justify-center text-lg transition-colors" title="LinkedIn">
+                                <i class="ph-bold ph-linkedin-logo"></i>
+                            </a>
+                            <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-retro-card hover:bg-retro-accent hover:text-white retro-border retro-shadow-sm flex items-center justify-center text-lg transition-colors" title="Dribbble">
+                                <i class="ph-bold ph-dribbble-logo"></i>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-retro-card hover:bg-retro-accent hover:text-white retro-border retro-shadow-sm flex items-center justify-center text-lg transition-colors" title="Instagram">
+                                <i class="ph-bold ph-instagram-logo"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="lg:col-span-6 space-y-4 bg-retro-bg p-6 rounded-xl retro-border">
+                        <div>
+                            <label class="block font-mono text-xs font-bold mb-1.5">NAMA LENGKAP *</label>
+                            <input type="text" required placeholder="Budi Santoso" class="w-full px-4 py-2.5 rounded-lg bg-retro-card retro-border font-sans text-sm focus:outline-none focus:ring-2 focus:ring-retro-accent">
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs font-bold mb-1.5">ALAMAT EMAIL *</label>
+                            <input type="email" required placeholder="budi@email.com" class="w-full px-4 py-2.5 rounded-lg bg-retro-card retro-border font-sans text-sm focus:outline-none focus:ring-2 focus:ring-retro-accent">
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs font-bold mb-1.5">PESAN / DETAIL PROYEK *</label>
+                            <textarea rows="3" required placeholder="Halo Raka, saya tertarik membuat website..." class="w-full px-4 py-2.5 rounded-lg bg-retro-card retro-border font-sans text-sm focus:outline-none focus:ring-2 focus:ring-retro-accent"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 rounded-xl bg-retro-accent text-white font-mono font-bold text-sm retro-border retro-shadow-sm retro-btn flex items-center justify-center gap-2 hover:opacity-95 transition-opacity">
+                            <i class="ph-bold ph-paper-plane-tilt"></i>
+                            <span>KIRIM TRANSMISI PESAN</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-6xl mx-auto px-4 sm:px-6 py-10 mt-12 border-t-2 border-retro-border font-mono text-xs flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div>
+            © 2026 RAKA PRATAMA. DIRAKIT DENGAN ☕ & ESTETIKA RETRO.
+        </div>
+        <a href="#" class="px-3 py-1.5 rounded-lg bg-retro-card retro-border hover:bg-retro-accent hover:text-white transition-colors">
+            KEMBALI KE ATAS ↑
+        </a>
+    </footer>
+
+    <!-- Project Case Study Modal -->
+    <div id="project-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+        <div class="bg-retro-card retro-border retro-shadow rounded-2xl max-w-lg w-full overflow-hidden animate-[scaleIn_0.2s_ease-out]">
+            <div class="bg-retro-secondary border-b-2 border-retro-border px-4 py-2.5 flex justify-between items-center">
+                <span class="font-mono text-xs font-bold">DETAIL_PROYEK.TXT</span>
+                <button onclick="closeModal()" class="w-6 h-6 rounded bg-red-500 text-white border border-black flex items-center justify-center text-xs font-bold">✕</button>
+            </div>
+            <div class="p-6 space-y-4">
+                <h3 id="modal-title" class="font-serif text-2xl font-bold">Judul Proyek</h3>
+                <p id="modal-desc" class="text-sm text-retro-text/80 leading-relaxed">Deskripsi lengkap proyek.</p>
+                <div class="p-3 bg-retro-secondary/50 rounded-lg border border-retro-border font-mono text-xs">
+                    <span class="font-bold">Teknologi:</span> <span id="modal-tech"></span>
+                </div>
+                <div class="flex justify-end gap-3 pt-2">
+                    <button onclick="closeModal()" class="px-4 py-2 rounded-lg bg-retro-secondary retro-border font-mono text-xs font-bold">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-retro-card retro-border retro-shadow rounded-xl px-4 py-3 font-mono text-xs font-bold items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-green-500 border border-black"></span>
+        <span id="toast-message">Berhasil!</span>
+    </div>
+
+    <script>
+        // 1. Live Clock WIB
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('live-clock').textContent = `${timeString} WIB`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // 2. Theme Switcher
+        function setTheme(themeName) {
+            if (themeName === 'default') {
+                document.documentElement.removeAttribute('data-theme');
+                showToast('Tema diubah ke: Classic Cream');
+            } else {
+                document.documentElement.setAttribute('data-theme', themeName);
+                const label = themeName === 'matcha' ? 'Retro Matcha' : 'Cyber 95 Dark';
+                showToast(`Tema diubah ke: ${label}`);
+            }
+        }
+
+        // 3. Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            });
+        });
+
+        // 4. Custom Cursor Follower
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('a, button, input, textarea, .project-card').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // 5. 3D Tilt Effect on Hero Card
+        const heroCard = document.getElementById('hero-card');
+        heroCard.addEventListener('mousemove', (e) => {
+            const rect = heroCard.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -5;
+            const rotateY = ((x - centerX) / centerX) * 5;
+            heroCard.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        heroCard.addEventListener('mouseleave', () => {
+            heroCard.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+        });
+
+        // 6. Web Audio API Retro Lofi / Chiptune Loop
+        let isPlaying = false;
+        let audioCtx = null;
+        let melodyInterval = null;
+
+        function toggleRetroSound() {
+            const disc = document.getElementById('vinyl-disc');
+            const icon = document.getElementById('play-icon');
+            const text = document.getElementById('play-text');
+            const status = document.getElementById('track-status');
+
+            if (!isPlaying) {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                isPlaying = true;
+                disc.classList.add('playing');
+                icon.className = 'ph-fill ph-pause';
+                text.textContent = 'STOP';
+                status.textContent = '♪ Playing 8-Bit Groove...';
+
+                // Play pleasant soft retro synth notes
+                const notes = [261.63, 329.63, 392.00, 493.88, 392.00, 329.63]; // Cmaj7 arpeggio
+                let step = 0;
+
+                const playNote = () => {
+                    if (!isPlaying) return;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(notes[step % notes.length], audioCtx.currentTime);
+
+                    gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.35);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.35);
+                    step++;
+                };
+
+                playNote();
+                melodyInterval = setInterval(playNote, 400);
+            } else {
+                isPlaying = false;
+                clearInterval(melodyInterval);
+                disc.classList.remove('playing');
+                icon.className = 'ph-fill ph-play';
+                text.textContent = 'PLAY';
+                status.textContent = '8-Bit Coffee Shop';
+            }
+        }
+
+        // 7. Project Category Filter
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.project-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-retro-accent', 'text-white', 'font-bold');
+                btn.classList.add('bg-retro-card');
+            });
+            event.currentTarget.classList.remove('bg-retro-card');
+            event.currentTarget.classList.add('bg-retro-accent', 'text-white', 'font-bold');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 8. Project Modal Handler
+        function openModal(title, desc, tech) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-desc').textContent = desc;
+            document.getElementById('modal-tech').textContent = tech;
+            const modal = document.getElementById('project-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('project-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // 9. Copy Email to Clipboard
+        function copyEmail() {
+            const email = document.getElementById('email-text').textContent;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = email;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            document.getElementById('copy-label').textContent = 'Tersalin!';
+            showToast('Email berhasil disalin ke clipboard!');
+            setTimeout(() => {
+                document.getElementById('copy-label').textContent = 'Salin';
+            }, 2500);
+        }
+
+        // 10. Contact Form Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            e.target.reset();
+            showToast('Pesan terkirim! Saya akan segera membalas.');
+        }
+
+        // 11. Toast Helper
+        let toastTimeout;
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 3000);
+        }
+
+        // 12. Scroll Reveal Observer
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.12 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>

@@ -70,6 +70,24 @@ File ini digunakan untuk melacak kemajuan pengerjaan aplikasi portofolio pribadi
 
 ---
 
+## Revisi Visual Desain Scrapbook (Oktober 2026)
+Dokumentasi lengkap dan rencana pengerjaan per section tersedia di: [REVISI_VISUAL_HERO_NAVBAR.md](file:///home/mikhsanhidayat/Projects/ikhsan_dev_portofolio/REVISI_VISUAL_HERO_NAVBAR.md).
+- [x] **Tahap 1 — Navbar & Hero Section**:
+  - [x] Desain Navbar warm white (`#FFFCF8`) dengan border bawah tipis (`#E8E1D6`) dan active state terracotta.
+  - [x] Layout Hero dua kolom editorial dengan kontainer luas `1440px` dan padding responsif.
+  - [x] Komposisi scrapbook: polaroid foto asli dengan washi tape, sticky note, grid paper, aksen botani, bintang doodle, dan kutipan tangan.
+  - [x] Penataan ulang kartu informasi personal di kanan polaroid agar seluruh teks & ikon terbaca 100% tanpa tertutup foto.
+  - [x] Tekstur background natural paper grain (SVG fractal noise) & micro stipple dots halus.
+  - [x] Sinkronisasi seluruh identitas profesi di Hero secara dinamis ke database/CMS (`$profile['headline']`).
+  - [x] Strip informasi bawah berbasis data riil tanpa klaim fiktif.
+- [ ] **Tahap 2 — Section "Tentang Saya" (About Section)**
+- [ ] **Tahap 3 — Section "Keahlian & Kompetensi" (Skills Section)**
+- [ ] **Tahap 4 — Section "Riwayat Studi & Pengalaman" (Education & Timeline)**
+- [ ] **Tahap 5 — Section "Proyek Portofolio" (Projects Section)**
+- [ ] **Tahap 6 — Section "Kontak" & Footer**
+
+---
+
 ## Fitur Tambahan & Kustomisasi (Agustus 2026) `[x]`
 - [x] **Peta Google Maps Dinamis & Konversi Otomatis**:
   - Peta Google Maps tidak lagi di-hardcode, melainkan dimuat secara dinamis dari database.

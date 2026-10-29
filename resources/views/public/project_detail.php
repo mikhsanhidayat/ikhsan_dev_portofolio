@@ -13,231 +13,374 @@ function parse_youtube_embed(?string $url): ?string {
 $youtubeEmbedUrl = parse_youtube_embed($project['video_url'] ?? null);
 ?>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-    <!-- Breadcrumb -->
-    <nav class="mb-6 flex items-center justify-between">
-        <a href="/#proyek" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors">
-            <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Daftar Proyek
+<div class="max-w-[1380px] w-[92%] mx-auto py-8 md:py-12 space-y-6">
+    
+    <!-- Top Breadcrumb Navigation -->
+    <div class="flex items-center justify-between font-mono text-xs">
+        <a href="/#proyek" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-retro-card hover:bg-retro-accent hover:text-white retro-border retro-shadow-sm font-bold text-retro-text transition-colors">
+            <i class="ph-bold ph-arrow-left text-base"></i>
+            <span>&larr; Kembali ke Beranda</span>
         </a>
-    </nav>
-
-    <!-- Project Title Header -->
-    <div class="space-y-4 mb-8">
-        <span class="inline-flex items-center rounded-md bg-blue-50 px-2.5 py-1 text-xs font-bold text-blue-700 ring-1 ring-inset ring-blue-700/10 uppercase tracking-wider">
-            <?= e($project['category_name']) ?>
+        <span class="px-3 py-1.5 rounded-lg bg-retro-secondary retro-border font-bold text-retro-text text-xs">
+            SYS_ID: #<?= (int)$project['id'] ?> // <?= strtoupper(substr(e($project['slug'] ?? 'APP'), 0, 16)) ?>.EXE
         </span>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-slate-800 leading-tight">
-            <?= e($project['title']) ?>
-        </h1>
-        <p class="text-slate-500 text-sm max-w-3xl leading-relaxed font-light">
-            <?= e($project['summary']) ?>
-        </p>
     </div>
 
-    <!-- Main Grid layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <!-- Main Window Container: DETAIL_PROYEK.EXE -->
+    <article class="bg-retro-card retro-border retro-shadow rounded-2xl overflow-hidden">
         
-        <!-- Left: Narratives Story Column (8 cols) -->
-        <div class="lg:col-span-8 space-y-8">
-            
-            <!-- Cover image large -->
-            <div class="bg-slate-200 border border-slate-200 rounded-2xl overflow-hidden shadow-sm aspect-video flex items-center justify-center">
-                <?php if ($project['cover_image']): ?>
-                    <img src="<?= route($project['cover_image']) ?>" alt="<?= e($project['title']) ?>" class="w-full h-full object-cover">
-                <?php else: ?>
-                    <i data-lucide="image" class="w-16 h-16 text-slate-400"></i>
-                <?php endif; ?>
+        <!-- OS Window Titlebar -->
+        <div class="bg-retro-secondary border-b-2 border-retro-border px-5 py-3 flex items-center justify-between font-mono text-xs md:text-sm font-bold">
+            <div class="flex items-center gap-2.5">
+                <span class="w-3 h-3 rounded-full bg-[#FF5F56] border border-black inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-[#FFBD2E] border border-black inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-[#27C93F] border border-black inline-block"></span>
+                <span class="ml-2 text-retro-text">DETAIL_PROYEK.EXE // <?= strtoupper(e($project['slug'] ?? 'APP')) ?></span>
             </div>
-
-            <!-- Narratives detailed content cards -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm space-y-8">
-                
-                <!-- Background & Objective -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="space-y-2">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                            <i data-lucide="help-circle" class="w-4 h-4"></i> Masalah / Latar Belakang
-                        </h3>
-                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-light whitespace-pre-line"><?= e($project['background']) ?></p>
-                    </div>
-                    <div class="space-y-2">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                            <i data-lucide="target" class="w-4 h-4"></i> Tujuan Proyek
-                        </h3>
-                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-light whitespace-pre-line"><?= e($project['objective']) ?></p>
-                    </div>
-                </div>
-
-                <hr class="border-slate-100">
-
-                <!-- Solution & Role -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="space-y-2">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                            <i data-lucide="check-circle" class="w-4 h-4"></i> Solusi yang Dibangun
-                        </h3>
-                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-light whitespace-pre-line"><?= e($project['solution']) ?></p>
-                    </div>
-                    <div class="space-y-2">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                            <i data-lucide="user-check" class="w-4 h-4"></i> Peran & Tanggung Jawab Anda
-                        </h3>
-                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-light whitespace-pre-line"><?= e($project['role_description']) ?></p>
-                    </div>
-                </div>
-
-                <hr class="border-slate-100">
-
-                <!-- Process -->
-                <div class="space-y-2">
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                        <i data-lucide="git-branch" class="w-4 h-4"></i> Proses & Tahapan Pengerjaan
-                    </h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-light whitespace-pre-line"><?= e($project['process_description']) ?></p>
-                </div>
-
-                <hr class="border-slate-100">
-
-                <!-- Features & Results -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="space-y-2">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                            <i data-lucide="layers" class="w-4 h-4"></i> Fitur Utama
-                        </h3>
-                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-light whitespace-pre-line"><?= e($project['feature_description']) ?></p>
-                    </div>
-                    <div class="space-y-2">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                            <i data-lucide="trending-up" class="w-4 h-4"></i> Hasil & Dampak Nyata
-                        </h3>
-                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-light whitespace-pre-line"><?= e($project['result_description']) ?></p>
-                    </div>
-                </div>
-
-                <!-- Challenges (if present) -->
-                <?php if (!empty($project['challenge_description'])): ?>
-                    <hr class="border-slate-100">
-                    <div class="space-y-2 bg-yellow-50/50 border border-yellow-100 rounded-xl p-4">
-                        <h3 class="text-xs font-bold text-yellow-800 uppercase tracking-widest flex items-center gap-1.5">
-                            <i data-lucide="alert-triangle" class="w-4 h-4"></i> Tantangan & Pembelajaran
-                        </h3>
-                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-light whitespace-pre-line"><?= e($project['challenge_description']) ?></p>
-                    </div>
-                <?php endif; ?>
-
+            <div class="flex items-center gap-3">
+                <span class="hidden sm:inline-block px-2.5 py-0.5 rounded bg-retro-card retro-border text-xs text-retro-text">
+                    STATUS: <?= strtoupper(e($project['project_status'] ?? 'SELESAI')) ?>
+                </span>
+                <span class="text-retro-accent font-bold">PORT: 8080 // ACTIVE</span>
             </div>
-
         </div>
 
-        <!-- Right: Sidebar Widget Column (4 cols) -->
-        <div class="lg:col-span-4 space-y-6">
+        <!-- Window Body -->
+        <div class="p-6 sm:p-10 lg:p-12 space-y-10">
             
-            <!-- Metadata widget -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
-                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider pb-3 border-b border-slate-100">
-                    Detail Proyek
-                </h3>
-
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between text-xs pb-3 border-b border-slate-50">
-                        <span class="text-slate-400 font-medium">Status</span>
-                        <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 font-bold text-green-700 ring-1 ring-inset ring-green-600/20">
-                            <?= e($project['project_status']) ?>
+            <!-- Project Header Info -->
+            <div class="space-y-4 border-b-2 border-retro-border pb-8">
+                <div class="flex flex-wrap items-center gap-3">
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-lg bg-retro-accent text-white font-mono text-xs md:text-sm font-bold">
+                        <i class="ph-fill ph-tag"></i>
+                        <span><?= e($project['category_name'] ?? 'Proyek Web') ?></span>
+                    </span>
+                    <?php if ((int)($project['is_featured'] ?? 0) === 1): ?>
+                        <span class="px-3 py-1 bg-yellow-400 text-black border border-black font-mono text-xs font-black rounded-lg">
+                            ★ PROYEK UNGGULAN
                         </span>
-                    </div>
-
-                    <div class="flex items-center justify-between text-xs pb-3 border-b border-slate-50">
-                        <span class="text-slate-400 font-medium">Periode Pengerjaan</span>
-                        <span class="font-semibold text-slate-800 font-mono">
-                            <?= date('M Y', strtotime($project['start_date'])) ?> - 
-                            <?= $project['end_date'] ? date('M Y', strtotime($project['end_date'])) : 'Sekarang' ?>
-                        </span>
-                    </div>
-
-                    <?php if (!empty($project['demo_url'])): ?>
-                        <a href="<?= e($project['demo_url']) ?>" target="_blank"
-                            class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition-colors focus:outline-none">
-                            <i data-lucide="external-link" class="w-4 h-4"></i> Kunjungi Live Demo
-                        </a>
                     <?php endif; ?>
+                    <span class="font-mono text-xs md:text-sm text-retro-text font-semibold sm:ml-auto">
+                        Periode: <?= date('M Y', strtotime($project['start_date'])) ?> &mdash; <?= $project['end_date'] ? date('M Y', strtotime($project['end_date'])) : 'Sekarang' ?>
+                    </span>
+                </div>
 
-                    <?php if (!empty($project['github_url'])): ?>
-                        <a href="<?= e($project['github_url']) ?>" target="_blank"
-                            class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg transition-colors focus:outline-none">
-                            <i data-lucide="github" class="w-4 h-4"></i> Repository GitHub
-                        </a>
+                <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-black text-retro-text leading-tight tracking-tight">
+                    <?= e($project['title']) ?>
+                </h1>
+
+                <?php if (!empty($project['summary'])): ?>
+                    <p class="text-base md:text-lg text-retro-text leading-relaxed font-sans font-medium max-w-4xl">
+                        <?= e($project['summary']) ?>
+                    </p>
+                <?php endif; ?>
+
+                <!-- Action Buttons: Live Demo & GitHub -->
+                <?php if (!empty($project['demo_url']) || !empty($project['github_url'])): ?>
+                    <div class="flex flex-wrap items-center gap-3 pt-2">
+                        <?php if (!empty($project['demo_url'])): ?>
+                            <a href="<?= e($project['demo_url']) ?>" target="_blank" rel="noopener noreferrer"
+                               class="px-6 py-3 rounded-xl bg-retro-accent text-white font-mono font-bold text-xs sm:text-sm retro-border retro-shadow-sm retro-btn flex items-center gap-2 hover:opacity-95 transition-all">
+                                <i class="ph-bold ph-arrow-square-out text-lg"></i>
+                                <span>KUNJUNGI LIVE DEMO</span>
+                            </a>
+                        <?php endif; ?>
+
+                        <?php if (!empty($project['github_url'])): ?>
+                            <a href="<?= e($project['github_url']) ?>" target="_blank" rel="noopener noreferrer"
+                               class="px-6 py-3 rounded-xl bg-retro-card hover:bg-retro-secondary text-retro-text font-mono font-bold text-xs sm:text-sm retro-border retro-shadow-sm retro-btn flex items-center gap-2 transition-all">
+                                <i class="ph-bold ph-github-logo text-lg"></i>
+                                <span>REPOSITORY GITHUB</span>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <!-- Media Hero: Cover Screenshot -->
+            <div class="space-y-3">
+                <div class="flex items-center justify-between font-mono text-xs md:text-sm font-bold text-retro-text">
+                    <span class="flex items-center gap-2">
+                        <i class="ph-bold ph-image text-retro-accent text-base"></i>
+                        COVER_SCREENSHOT_PREVIEW.PNG
+                    </span>
+                    <span class="text-xs text-retro-text/75">DISPLAY: 100% SCALE</span>
+                </div>
+
+                <div class="w-full bg-retro-secondary/40 retro-border rounded-xl overflow-hidden shadow-inner">
+                    <?php 
+                    $coverRelPath = !empty($project['cover_image']) ? ltrim($project['cover_image'], '/') : '';
+                    $hasCover = !empty($coverRelPath) && is_file(public_path($coverRelPath));
+                    ?>
+                    <?php if ($hasCover): ?>
+                        <img src="/<?= e($coverRelPath) ?>" 
+                             alt="<?= e($project['title']) ?>" 
+                             class="w-full max-h-[560px] object-cover object-top border-b-2 border-retro-border">
+                    <?php else: ?>
+                        <div class="w-full h-80 flex flex-col items-center justify-center p-8 text-center space-y-3 font-mono bg-grid">
+                            <i class="ph-bold ph-browsers text-6xl text-retro-accent"></i>
+                            <div class="font-bold text-base text-retro-text">Pratinjau Antarmuka Tidak Tersedia</div>
+                            <div class="text-xs text-retro-text/75 max-w-md">Tangkapan layar sistem untuk proyek ini sedang dalam arsip lokal.</div>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
 
-            <!-- YouTube video player widget (if present) -->
+            <!-- YouTube Video Demo Embed (if present) -->
             <?php if ($youtubeEmbedUrl): ?>
-                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider p-6 pb-3 border-b border-slate-100 bg-white">
-                        Presentasi Video Demo
-                    </h3>
-                    <div class="aspect-video w-full bg-slate-900">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between font-mono text-xs md:text-sm font-bold text-retro-text">
+                        <span class="flex items-center gap-2">
+                            <i class="ph-bold ph-video-camera text-retro-accent text-base"></i>
+                            DEMO_REKAMAN_VIDEO.MP4
+                        </span>
+                        <span class="text-xs text-retro-text/75">YOUTUBE STREAM</span>
+                    </div>
+                    <div class="aspect-video w-full retro-border rounded-xl overflow-hidden bg-black shadow-inner">
                         <iframe src="<?= $youtubeEmbedUrl ?>" class="w-full h-full" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                     </div>
                 </div>
             <?php endif; ?>
 
-            <!-- Technologies widget -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
-                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider pb-3 border-b border-slate-100">
-                    Teknologi Digunakan
-                </h3>
-                <div class="flex flex-wrap gap-2">
-                    <?php foreach ($technologies as $tech): ?>
-                        <span class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-slate-50 rounded border border-slate-200 shadow-sm leading-none">
-                            <?php if ($tech['icon']): ?>
-                                <i data-lucide="<?= e($tech['icon']) ?>" class="w-3.5 h-3.5 text-slate-400"></i>
-                            <?php endif; ?>
-                            <?= e($tech['name']) ?>
-                        </span>
-                    <?php endforeach; ?>
-                </div>
-            </div>
+            <!-- Main Content Grid (Narrative Left 8 cols & Sidebar Right 4 cols) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left Narrative Column (8 cols) -->
+                <div class="lg:col-span-8 space-y-8">
+                    
+                    <!-- Latar Belakang & Tujuan -->
+                    <?php if (!empty($project['background']) || !empty($project['objective'])): ?>
+                        <div class="bg-retro-bg p-6 sm:p-8 rounded-xl retro-border space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <?php if (!empty($project['background'])): ?>
+                                    <div class="space-y-2">
+                                        <h3 class="font-mono text-xs md:text-sm font-bold text-retro-accent uppercase tracking-wider flex items-center gap-1.5">
+                                            <i class="ph-bold ph-question"></i>
+                                            <span>Masalah &amp; Latar Belakang</span>
+                                        </h3>
+                                        <p class="text-sm md:text-base text-retro-text font-medium leading-relaxed font-sans whitespace-pre-line"><?= e($project['background']) ?></p>
+                                    </div>
+                                <?php endif; ?>
 
-        </div>
-
-    </div>
-
-    <!-- Gallery Multi-media documentation section (bottom) -->
-    <?php if (!empty($mediaItems)): ?>
-        <div class="mt-12 bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm space-y-6">
-            <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider pb-3 border-b border-slate-100 flex items-center gap-2">
-                <i data-lucide="images" class="w-5 h-5 text-blue-600"></i> Galeri Dokumentasi Proyek
-            </h3>
-
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                <?php foreach ($mediaItems as $media): ?>
-                    <!-- Link tag triggers GLightbox -->
-                    <a href="<?= route($media['file_path']) ?>" 
-                       class="glightbox border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col hover:border-blue-500 hover:shadow-md transition-all duration-300 relative group aspect-video"
-                       data-gallery="gallery_proj" 
-                       data-title="<?= e($media['title']) ?>" 
-                       data-description="<?= e($media['description']) ?>">
-                        
-                        <!-- Thumbnail photo image -->
-                        <?php 
-                        $thumbPath = str_replace('projects/gallery/', 'projects/gallery/thumbs/thumb_', $media['file_path']);
-                        if (is_file(public_path($thumbPath))): 
-                        ?>
-                            <img src="<?= route($thumbPath) ?>" alt="<?= e($media['alt_text']) ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <?php else: ?>
-                            <img src="<?= route($media['file_path']) ?>" alt="<?= e($media['alt_text']) ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <?php endif; ?>
-                        
-                        <!-- Hover icon overlays -->
-                        <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <i data-lucide="zoom-in" class="w-8 h-8 text-white"></i>
+                                <?php if (!empty($project['objective'])): ?>
+                                    <div class="space-y-2">
+                                        <h3 class="font-mono text-xs md:text-sm font-bold text-retro-accent uppercase tracking-wider flex items-center gap-1.5">
+                                            <i class="ph-bold ph-target"></i>
+                                            <span>Tujuan Proyek</span>
+                                        </h3>
+                                        <p class="text-sm md:text-base text-retro-text font-medium leading-relaxed font-sans whitespace-pre-line"><?= e($project['objective']) ?></p>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
                         </div>
-                    </a>
-                <?php endforeach; ?>
+                    <?php endif; ?>
+
+                    <!-- Solusi & Peran Tanggung Jawab -->
+                    <?php if (!empty($project['solution']) || !empty($project['role_description'])): ?>
+                        <div class="bg-retro-bg p-6 sm:p-8 rounded-xl retro-border space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <?php if (!empty($project['solution'])): ?>
+                                    <div class="space-y-2">
+                                        <h3 class="font-mono text-xs md:text-sm font-bold text-retro-accent uppercase tracking-wider flex items-center gap-1.5">
+                                            <i class="ph-bold ph-check-circle"></i>
+                                            <span>Solusi yang Dibangun</span>
+                                        </h3>
+                                        <p class="text-sm md:text-base text-retro-text font-medium leading-relaxed font-sans whitespace-pre-line"><?= e($project['solution']) ?></p>
+                                    </div>
+                                <?php endif; ?>
+
+                                <?php if (!empty($project['role_description'])): ?>
+                                    <div class="space-y-2">
+                                        <h3 class="font-mono text-xs md:text-sm font-bold text-retro-accent uppercase tracking-wider flex items-center gap-1.5">
+                                            <i class="ph-bold ph-user-check"></i>
+                                            <span>Peran &amp; Tanggung Jawab</span>
+                                        </h3>
+                                        <p class="text-sm md:text-base text-retro-text font-medium leading-relaxed font-sans whitespace-pre-line"><?= e($project['role_description']) ?></p>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Fitur Utama & Proses Pengerjaan -->
+                    <?php if (!empty($project['feature_description']) || !empty($project['process_description'])): ?>
+                        <div class="bg-retro-bg p-6 sm:p-8 rounded-xl retro-border space-y-6">
+                            <?php if (!empty($project['feature_description'])): ?>
+                                <div class="space-y-2">
+                                    <h3 class="font-mono text-xs md:text-sm font-bold text-retro-accent uppercase tracking-wider flex items-center gap-1.5">
+                                        <i class="ph-bold ph-stack"></i>
+                                        <span>Fitur Utama Sistem</span>
+                                    </h3>
+                                    <p class="text-sm md:text-base text-retro-text font-medium leading-relaxed font-sans whitespace-pre-line"><?= e($project['feature_description']) ?></p>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($project['process_description'])): ?>
+                                <hr class="border-retro-border/20">
+                                <div class="space-y-2">
+                                    <h3 class="font-mono text-xs md:text-sm font-bold text-retro-accent uppercase tracking-wider flex items-center gap-1.5">
+                                        <i class="ph-bold ph-git-branch"></i>
+                                        <span>Tahapan &amp; Proses Pengerjaan</span>
+                                    </h3>
+                                    <p class="text-sm md:text-base text-retro-text font-medium leading-relaxed font-sans whitespace-pre-line"><?= e($project['process_description']) ?></p>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Hasil Nyata & Tantangan -->
+                    <?php if (!empty($project['result_description']) || !empty($project['challenge_description'])): ?>
+                        <div class="bg-retro-bg p-6 sm:p-8 rounded-xl retro-border space-y-6">
+                            <?php if (!empty($project['result_description'])): ?>
+                                <div class="space-y-2">
+                                    <h3 class="font-mono text-xs md:text-sm font-bold text-retro-accent uppercase tracking-wider flex items-center gap-1.5">
+                                        <i class="ph-bold ph-trend-up"></i>
+                                        <span>Hasil &amp; Dampak Nyata</span>
+                                    </h3>
+                                    <p class="text-sm md:text-base text-retro-text font-medium leading-relaxed font-sans whitespace-pre-line"><?= e($project['result_description']) ?></p>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($project['challenge_description'])): ?>
+                                <hr class="border-retro-border/20">
+                                <div class="space-y-2 bg-retro-secondary/40 border border-retro-border rounded-xl p-4">
+                                    <h3 class="font-mono text-xs md:text-sm font-bold text-retro-accent uppercase tracking-wider flex items-center gap-1.5">
+                                        <i class="ph-bold ph-warning"></i>
+                                        <span>Tantangan &amp; Pembelajaran</span>
+                                    </h3>
+                                    <p class="text-sm md:text-base text-retro-text font-medium leading-relaxed font-sans whitespace-pre-line"><?= e($project['challenge_description']) ?></p>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+
+                </div>
+
+                <!-- Right Sidebar Column (4 cols) -->
+                <div class="lg:col-span-4 space-y-6">
+                    
+                    <!-- Tech Stack Widget -->
+                    <div class="bg-retro-bg retro-border rounded-xl p-6 space-y-4">
+                        <div class="font-mono text-xs md:text-sm font-bold text-retro-text uppercase tracking-wider pb-3 border-b-2 border-retro-border flex items-center justify-between">
+                            <span>STACK_DIGUNAKAN</span>
+                            <i class="ph-bold ph-code text-retro-accent text-base"></i>
+                        </div>
+                        <?php if (!empty($technologies)): ?>
+                            <div class="flex flex-wrap gap-2">
+                                <?php foreach ($technologies as $tech): ?>
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-bold text-retro-text bg-retro-card rounded-lg border border-retro-border shadow-xs">
+                                        <i class="ph-bold ph-circle text-[8px] text-retro-accent"></i>
+                                        <?= e($tech['name']) ?>
+                                    </span>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php else: ?>
+                            <p class="text-xs font-mono text-retro-text/70">Tidak ada data teknologi.</p>
+                        <?php endif; ?>
+                    </div>
+
+                    <!-- Metadata Status Widget -->
+                    <div class="bg-retro-bg retro-border rounded-xl p-6 space-y-4 font-mono text-xs">
+                        <div class="font-bold text-retro-text uppercase tracking-wider pb-3 border-b-2 border-retro-border flex items-center justify-between text-xs md:text-sm">
+                            <span>INFO_META.SYS</span>
+                            <i class="ph-bold ph-info text-retro-accent text-base"></i>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between pb-2 border-b border-retro-border/20">
+                                <span class="text-retro-text/75">Status Pengerjaan</span>
+                                <span class="px-2 py-0.5 rounded bg-green-100 text-green-900 border border-green-800 font-bold text-[10px]">
+                                    <?= e($project['project_status'] ?? 'Selesai') ?>
+                                </span>
+                            </div>
+
+                            <div class="flex items-center justify-between pb-2 border-b border-retro-border/20">
+                                <span class="text-retro-text/75">Mulai Pengerjaan</span>
+                                <span class="font-bold text-retro-text">
+                                    <?= date('d M Y', strtotime($project['start_date'])) ?>
+                                </span>
+                            </div>
+
+                            <div class="flex items-center justify-between pb-2 border-b border-retro-border/20">
+                                <span class="text-retro-text/75">Selesai Pengerjaan</span>
+                                <span class="font-bold text-retro-text">
+                                    <?= $project['end_date'] ? date('d M Y', strtotime($project['end_date'])) : 'Masih Berjalan' ?>
+                                </span>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <span class="text-retro-text/75">Kategori</span>
+                                <span class="font-bold text-retro-accent">
+                                    <?= e($project['category_name'] ?? 'Proyek') ?>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Direct links in sidebar -->
+                        <div hidden class="pt-3 space-y-2">
+                            <?php if (!empty($project['demo_url'])): ?>
+                                <a href="<?= e($project['demo_url']) ?>" target="_blank" rel="noopener noreferrer"
+                                   class="w-full py-2.5 px-4 rounded-xl bg-retro-accent text-white font-mono font-bold text-xs retro-border retro-shadow-sm retro-btn flex items-center justify-center gap-2 hover:opacity-95 transition-all">
+                                    <i class="ph-bold ph-arrow-square-out text-base"></i>
+                                    <span>Buka Live Demo</span>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if (!empty($project['github_url'])): ?>
+                                <a href="<?= e($project['github_url']) ?>" target="_blank" rel="noopener noreferrer"
+                                   class="w-full py-2.5 px-4 rounded-xl bg-retro-card hover:bg-retro-secondary text-retro-text font-mono font-bold text-xs retro-border retro-shadow-sm retro-btn flex items-center justify-center gap-2 transition-colors">
+                                    <i class="ph-bold ph-github-logo text-base"></i>
+                                    <span>Buka Repository</span>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
+
+            <!-- Gallery Multi-media Documentation (Bottom) -->
+            <?php if (!empty($mediaItems)): ?>
+                <div class="pt-8 border-t-2 border-retro-border space-y-5">
+                    <div class="flex items-center justify-between font-mono text-xs md:text-sm font-bold text-retro-text">
+                        <span class="flex items-center gap-2">
+                            <i class="ph-bold ph-images text-retro-accent text-base"></i>
+                            DOKUMENTASI_TANGKAPAN_LAYAR.LOG
+                        </span>
+                        <span class="px-2.5 py-0.5 rounded bg-retro-secondary retro-border text-xs">
+                            <?= count($mediaItems) ?> Berkas Gambar
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        <?php foreach ($mediaItems as $media): ?>
+                            <a href="<?= route($media['file_path']) ?>" 
+                               class="glightbox retro-border rounded-xl overflow-hidden shadow-xs flex flex-col hover:scale-102 transition-transform duration-200 relative group aspect-video bg-retro-secondary"
+                               data-gallery="gallery_proj" 
+                               data-title="<?= e($media['title'] ?? '') ?>" 
+                               data-description="<?= e($media['description'] ?? '') ?>">
+                                
+                                <?php 
+                                $thumbPath = str_replace('projects/gallery/', 'projects/gallery/thumbs/thumb_', $media['file_path']);
+                                if (is_file(public_path($thumbPath))): 
+                                ?>
+                                    <img src="<?= route($thumbPath) ?>" alt="<?= e($media['alt_text'] ?? '') ?>" class="w-full h-full object-cover">
+                                <?php else: ?>
+                                    <img src="<?= route($media['file_path']) ?>" alt="<?= e($media['alt_text'] ?? '') ?>" class="w-full h-full object-cover">
+                                <?php endif; ?>
+                                
+                                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                                    <i class="ph-bold ph-magnifying-glass-plus text-2xl"></i>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
         </div>
-    <?php endif; ?>
+    </article>
 
 </div>
 
