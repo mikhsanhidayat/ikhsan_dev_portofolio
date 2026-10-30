@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <title><?= e($title ?? 'Muhamad Ikhsan Hidayat | Fullstack Developer Portfolio') ?></title>
-    <meta name="description" content="<?= e($settings['meta_description'] ?? 'Portofolio Muhamad Ikhsan Hidayat, Fullstack Developer lulusan D3 Manajemen Informatika yang berpengalaman membangun aplikasi web dengan Laravel, PHP, dan MySQL.') ?>">
+    <?php
+    $metaTitle = $title ?? 'Muhamad Ikhsan Hidayat | Fullstack Developer Portfolio';
+    $metaDescription = $settings['meta_description'] ?? 'Portofolio Muhamad Ikhsan Hidayat, Fullstack Developer lulusan D3 Manajemen Informatika yang berpengalaman membangun aplikasi web dengan Laravel, PHP, dan MySQL.';
+    ?>
+    <title><?= e($metaTitle) ?></title>
+    <meta name="description" content="<?= e($metaDescription) ?>">
+    <meta property="og:title" content="<?= e($metaTitle) ?>">
+    <meta property="og:description" content="<?= e($metaDescription) ?>">
+    <meta name="twitter:title" content="<?= e($metaTitle) ?>">
+    <meta name="twitter:description" content="<?= e($metaDescription) ?>">
     
     <!-- Google Fonts: Space Grotesk, Fraunces (Retro Serif), JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,7 +87,38 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             transition: background-color 0.4s ease, color 0.4s ease;
-            overflow-x: hidden;
+            overflow-x: clip;
+        }
+
+        html {
+            scroll-padding-top: calc(var(--public-header-height, 10rem) + 1rem);
+        }
+
+        main section[id] {
+            scroll-margin-top: 0;
+        }
+
+        #public-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: var(--bg-color);
+        }
+
+        #public-header > header {
+            position: relative;
+        }
+
+        #mobile-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 0;
+            max-height: calc(100vh - var(--public-header-height, 10rem) - 1rem);
+            max-height: calc(100dvh - var(--public-header-height, 10rem) - 1rem);
+            overflow-y: auto;
+            overscroll-behavior: contain;
         }
 
         /* Subtle Dot Grid Background */
@@ -245,7 +284,8 @@
     <div id="cursor" class="custom-cursor hidden md:block" aria-hidden="true"></div>
 
     <!-- Top OS Status Bar -->
-    <div class="w-full retro-border border-t-0 border-x-0 bg-retro-secondary px-4 py-1.5 text-xs font-mono flex flex-wrap justify-between items-center gap-2 sticky top-0 z-50">
+    <div id="public-header">
+    <div class="w-full retro-border border-t-0 border-x-0 bg-retro-secondary px-4 py-1.5 text-xs font-mono flex flex-wrap justify-between items-center gap-2">
         <div class="flex items-center gap-2">
             <span class="inline-block w-2.5 h-2.5 rounded-full bg-green-500 border border-retro-border animate-pulse"></span>
             <span class="font-bold tracking-tight">IKHSAN_OS v2.6</span>
@@ -333,6 +373,23 @@
             </div>
         </div>
     </header>
+    </div>
+
+    <script>
+        (function() {
+            const publicHeader = document.getElementById('public-header');
+            const updateHeaderHeight = () => {
+                document.documentElement.style.setProperty('--public-header-height', `${publicHeader.getBoundingClientRect().height}px`);
+            };
+            updateHeaderHeight();
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(updateHeaderHeight).observe(publicHeader);
+            }
+            window.addEventListener('resize', updateHeaderHeight);
+            window.addEventListener('load', updateHeaderHeight);
+            if (document.fonts) document.fonts.ready.then(updateHeaderHeight);
+        })();
+    </script>
 
     <!-- Main Content Container -->
     <main class="w-full">
