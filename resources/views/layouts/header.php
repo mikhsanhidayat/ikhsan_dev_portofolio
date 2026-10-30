@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <title><?= e($title ?? 'M. Ikhsan Hidayat — Fullstack Developer') ?></title>
     <meta name="description" content="<?= e($settings['meta_description'] ?? 'Website portofolio resmi M. Ikhsan Hidayat, Fullstack Developer.') ?>">
     
@@ -282,20 +283,7 @@
                 <a href="/#kontak" class="nav-link-retro hover:text-retro-accent transition-all" data-target="kontak">Kontak</a>
             </div>
 
-            <!-- Action Buttons: Admin & Mobile Menu -->
-            <div class="flex items-center gap-2.5">
-                <?php if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true): ?>
-                    <a href="/admin/dashboard" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-retro-accent text-white retro-border retro-shadow-sm retro-btn font-mono text-xs font-bold transition-all">
-                        <i class="ph-bold ph-gauge"></i>
-                        <span>Panel Admin</span>
-                    </a>
-                <?php else: ?>
-                    <a href="/admin/login" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-retro-secondary hover:bg-retro-accent hover:text-white retro-border retro-shadow-sm retro-btn font-mono text-xs font-bold transition-all">
-                        <i class="ph-bold ph-lock-key"></i>
-                        <span>Login Admin</span>
-                    </a>
-                <?php endif; ?>
-
+            <div class="flex lg:hidden items-center gap-2.5">
                 <!-- Mobile Menu Button (Retro Boxed Button) -->
                 <button id="mobile-menu-btn" type="button" class="lg:hidden w-10 h-10 rounded-xl bg-retro-secondary hover:bg-retro-accent hover:text-white retro-border retro-shadow-sm flex items-center justify-center text-xl transition-all active:translate-x-0.5 active:translate-y-0.5 cursor-pointer" aria-label="Buka Menu Navigasi" aria-expanded="false">
                     <i id="mobile-menu-icon" class="ph-bold ph-list"></i>
@@ -342,20 +330,6 @@
                     <span>Kontak</span>
                     <i class="ph-bold ph-caret-right text-xs"></i>
                 </a>
-                
-                <div class="pt-2 border-t-2 border-retro-border/20 mt-1">
-                    <?php if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true): ?>
-                        <a href="/admin/dashboard" class="mobile-link py-2.5 px-4 bg-retro-accent text-white text-center rounded-xl retro-border font-bold flex items-center justify-center gap-2 shadow-xs">
-                            <i class="ph-bold ph-gauge"></i>
-                            <span>Panel Admin ↗</span>
-                        </a>
-                    <?php else: ?>
-                        <a href="/admin/login" class="mobile-link py-2.5 px-4 bg-retro-secondary hover:bg-retro-accent hover:text-white text-center rounded-xl retro-border font-bold flex items-center justify-center gap-2 transition-colors">
-                            <i class="ph-bold ph-lock-key"></i>
-                            <span>Login Admin ↗</span>
-                        </a>
-                    <?php endif; ?>
-                </div>
             </div>
         </div>
     </header>
