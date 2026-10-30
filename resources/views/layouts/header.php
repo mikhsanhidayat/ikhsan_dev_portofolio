@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <title><?= e($title ?? 'M. Ikhsan Hidayat — Fullstack Developer') ?></title>
-    <meta name="description" content="<?= e($settings['meta_description'] ?? 'Website portofolio resmi M. Ikhsan Hidayat, Fullstack Developer.') ?>">
+    <title><?= e($title ?? 'Muhamad Ikhsan Hidayat | Fullstack Developer Portfolio') ?></title>
+    <meta name="description" content="<?= e($settings['meta_description'] ?? 'Portofolio Muhamad Ikhsan Hidayat, Fullstack Developer lulusan D3 Manajemen Informatika yang berpengalaman membangun aplikasi web dengan Laravel, PHP, dan MySQL.') ?>">
     
     <!-- Google Fonts: Space Grotesk, Fraunces (Retro Serif), JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

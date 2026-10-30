@@ -87,7 +87,7 @@ class HomeController extends BaseController
 
             // Render view
             $this->render('public/home', [
-                'title'        => $settings['meta_title'] ?? 'Portofolio M. Ikhsanul Karim',
+                'title'        => $settings['meta_title'] ?? 'Muhamad Ikhsan Hidayat | Fullstack Developer Portfolio',
                 'profile'      => $profile,
                 'cv'           => $cv,
                 'skills'       => $skills,

@@ -571,7 +571,7 @@
                             <!-- Technologies Tags -->
                             <?php if (!empty($proj['technologies'])): ?>
                                 <div class="flex flex-wrap gap-1.5 pt-1 font-mono text-xs">
-                                    <?php foreach (array_slice($proj['technologies'], 0, 3) as $tech): ?>
+                                    <?php foreach ($proj['technologies'] as $tech): ?>
                                         <span class="px-2 py-0.5 bg-retro-secondary/80 rounded border border-retro-border/70 font-semibold text-retro-text">
                                             <?= e($tech['name']) ?>
                                         </span>

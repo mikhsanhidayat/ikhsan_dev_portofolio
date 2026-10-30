@@ -123,9 +123,9 @@ function runSeeder(): void
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
         $stmtProfile->execute([
-            'M. Ikhsanul Karim',
+            'Muhamad Ikhsan Hidayat',
             'Mahasiswa D3 Manajemen Informatika',
-            'Backend Developer Intern',
+            'Fullstack Developer',
             'Saya adalah mahasiswa D3 Manajemen Informatika yang berfokus pada pengembangan backend web, pengelolaan database relasional, dan penulisan kode PHP yang bersih dan aman.',
             'Sebagai mahasiswa tingkat akhir di program studi D3 Manajemen Informatika, saya aktif mengeksplorasi dunia pengembangan web khususnya backend development. Saya memiliki minat besar pada performa query SQL, keamanan aplikasi, dan penulisan RESTful API. Selama perkuliahan, saya telah mengerjakan beberapa proyek digitalisasi untuk masyarakat (KKN) dan sistem pergudangan untuk tugas besar perkuliahan. Saya siap mendedikasikan kemampuan saya sebagai magang Backend Developer untuk berkolaborasi dan berkembang di lingkungan industri yang profesional.',
             'Bandung, Indonesia',
@@ -356,8 +356,8 @@ function runSeeder(): void
             'Politeknik Negeri Bandung',
             'D3 Manajemen Informatika',
             'A.Md.Kom (Calon)',
-            2023,
-            2026,
+            2024,
+            2027,
             'Berfokus pada pengembangan sistem informasi, basis data, rekayasa perangkat lunak, dan keamanan sistem komputer. IPK berjalan: 3.82 / 4.00.',
             'logo_polban.png',
             1
@@ -368,10 +368,10 @@ function runSeeder(): void
         $db->exec("TRUNCATE TABLE `settings`");
         $stmtSet = $db->prepare("INSERT INTO `settings` (`key`, `value`, `type`) VALUES (?, ?, ?)");
         
-        $stmtSet->execute(['website_name', 'M. Ikhsanul Karim - Portofolio', 'text']);
-        $stmtSet->execute(['meta_title', 'M. Ikhsanul Karim | Backend Developer Intern Portfolio', 'text']);
-        $stmtSet->execute(['meta_description', 'Website portofolio resmi M. Ikhsanul Karim, mahasiswa D3 Manajemen Informatika yang siap magang sebagai Backend Web Developer.', 'textarea']);
-        $stmtSet->execute(['footer_text', 'M. Ikhsanul Karim. Dibuat menggunakan Native PHP, MySQL & Tailwind CSS.', 'text']);
+        $stmtSet->execute(['website_name', 'Muhamad Ikhsan Hidayat - Portofolio', 'text']);
+        $stmtSet->execute(['meta_title', 'Muhamad Ikhsan Hidayat | Fullstack Developer Portfolio', 'text']);
+        $stmtSet->execute(['meta_description', 'Portofolio Muhamad Ikhsan Hidayat, Fullstack Developer lulusan D3 Manajemen Informatika yang berpengalaman membangun aplikasi web dengan Laravel, PHP, dan MySQL.', 'textarea']);
+        $stmtSet->execute(['footer_text', 'Muhamad Ikhsan Hidayat. Dibuat menggunakan Native PHP, MySQL & Tailwind CSS.', 'text']);
         $stmtSet->execute(['primary_color', 'blue', 'text']); // Default accent color options: blue, indigo, slate
         
         // 10. Seed Messages
