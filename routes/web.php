@@ -99,4 +99,5 @@ $router->group('/admin', [AuthMiddleware::class], function (Router $r) {
     // Settings Management
     $r->get('/settings', [AdminSettingController::class, 'index']);
     $r->post('/settings', [AdminSettingController::class, 'update']);
+    $r->post('/settings/password', [AdminSettingController::class, 'password']);
 });

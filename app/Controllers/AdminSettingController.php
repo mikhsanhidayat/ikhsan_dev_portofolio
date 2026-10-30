@@ -10,6 +10,79 @@ use PDO;
 
 class AdminSettingController extends BaseController
 {
+    public function password(): void
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $adminId = filter_var($_SESSION['admin_id'] ?? null, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+        if (($_SESSION['admin_logged_in'] ?? false) !== true || $adminId === false) {
+            $this->redirect('/admin/login');
+            return;
+        }
+
+        $token = $_POST['csrf_token'] ?? null;
+        $expected = $_SESSION['csrf_token'] ?? null;
+        if (!is_string($token) || !is_string($expected) || $expected === '' || !hash_equals($expected, $token)) {
+            http_response_code(403);
+            echo 'Permintaan tidak dapat diproses.';
+            return;
+        }
+
+        $changed = false;
+        try {
+            $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+            if (!\App\Services\RateLimiter::consumePasswordAttempt($adminId, is_string($ip) ? $ip : '')) {
+                $_SESSION['flash']['error'] = 'Permintaan tidak dapat diproses. Silakan coba lagi nanti.';
+                $this->redirect('/admin/settings');
+                return;
+            }
+            $current = $_POST['current_password'] ?? null;
+            $new = $_POST['new_password'] ?? null;
+            $confirm = $_POST['confirm_password'] ?? null;
+            if (is_string($current) && $current !== '' && \App\Services\PasswordPolicy::valid($new) && is_string($confirm) && $new === $confirm) {
+                $db = Database::getConnection();
+                $db->beginTransaction();
+                $stmt = $db->prepare('SELECT `password` FROM `admins` WHERE `id` = ? FOR UPDATE');
+                $stmt->execute([$adminId]);
+                $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($admin && password_verify($current, $admin['password']) && !password_verify($new, $admin['password'])) {
+                    $hash = password_hash($new, PASSWORD_BCRYPT);
+                    $stmt = $db->prepare('UPDATE `admins` SET `password` = ? WHERE `id` = ?');
+                    $stmt->execute([$hash, $adminId]);
+                    $db->commit();
+                    $changed = true;
+                } else {
+                    $db->rollBack();
+                }
+            }
+        } catch (\Throwable $e) {
+            if (isset($db) && $db->inTransaction()) {
+                $db->rollBack();
+            }
+        }
+
+        if (!$changed) {
+            $_SESSION['flash']['error'] = 'Kata sandi tidak dapat diperbarui. Periksa isian atau coba lagi nanti.';
+            $this->redirect('/admin/settings');
+            return;
+        }
+
+        $_SESSION = [];
+        if (ini_get('session.use_cookies')) {
+            $params = session_get_cookie_params();
+            unset($params['lifetime']);
+            setcookie(session_name(), '', ['expires' => time() - 42000] + $params);
+        }
+        session_destroy();
+        unset($_COOKIE[session_name()]);
+        session_id('');
+        session_start();
+        $_SESSION['flash']['success'] = 'Kata sandi berhasil diperbarui. Silakan masuk kembali.';
+        $this->redirect('/admin/login');
+    }
+
     /**
      * Show the website settings form.
      */

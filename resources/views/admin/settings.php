@@ -11,7 +11,7 @@
             <i data-lucide="settings" class="w-8 h-8 text-slate-400"></i>
         </div>
 
-        <form action="/admin/settings" method="POST" class="space-y-6">
+        <form id="website-settings-form" action="/admin/settings" method="POST" class="space-y-6">
             <?= csrf_field() ?>
 
             <!-- Row 1: Website Name and Meta Title -->
@@ -71,17 +71,52 @@
             </div>
         </form>
     </div>
+
+    <div class="mt-6 bg-white rounded-xl border border-slate-200 p-6 md:p-8 shadow-sm">
+        <div class="pb-6 border-b border-slate-100 mb-6">
+            <h2 class="text-lg font-bold font-heading text-slate-800">Keamanan Akun</h2>
+            <p id="password-help" class="text-xs text-slate-500 mt-2">Gunakan kata sandi baru minimal 12 karakter Unicode dan maksimal 72 byte. Spasi tetap dihitung. Setelah berhasil, Anda harus masuk kembali. Sesi di perangkat lain tidak otomatis keluar.</p>
+        </div>
+        <form id="password-settings-form" action="/admin/settings/password" method="POST" class="space-y-6" aria-describedby="password-help">
+            <?= csrf_field() ?>
+            <div>
+                <label for="current_password" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Kata Sandi Saat Ini</label>
+                <input type="password" id="current_password" name="current_password" autocomplete="current-password" required class="block w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="new_password" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Kata Sandi Baru</label>
+                    <input type="password" id="new_password" name="new_password" autocomplete="new-password" required class="block w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                </div>
+                <div>
+                    <label for="confirm_password" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Konfirmasi Kata Sandi Baru</label>
+                    <input type="password" id="confirm_password" name="confirm_password" autocomplete="new-password" required class="block w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                </div>
+            </div>
+            <div class="pt-6 border-t border-slate-100 flex justify-end">
+                <button type="submit" id="save-password-btn" class="w-full md:w-auto inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">Ubah Kata Sandi</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>
     // Handle Loading State
-    const form = document.querySelector('form');
+    const form = document.getElementById('website-settings-form');
     const saveBtn = document.getElementById('save-settings-btn');
 
     if (form && saveBtn) {
         form.addEventListener('submit', () => {
             saveBtn.disabled = true;
             saveBtn.innerHTML = '<span class="inline-block animate-spin border-2 border-white border-t-transparent rounded-full w-4 h-4"></span> Menyimpan...';
+        });
+    }
+    const passwordForm = document.getElementById('password-settings-form');
+    const passwordBtn = document.getElementById('save-password-btn');
+    if (passwordForm && passwordBtn) {
+        passwordForm.addEventListener('submit', () => {
+            passwordBtn.disabled = true;
+            passwordBtn.textContent = 'Memperbarui...';
         });
     }
 </script>

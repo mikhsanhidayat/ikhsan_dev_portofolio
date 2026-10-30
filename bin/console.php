@@ -437,10 +437,10 @@ function createAdmin(): void
     echo "Masukkan Password: ";
     // Read password securely if possible, otherwise simple text read
     // On Windows standard PHP fgets(STDIN) is fully sufficient for terminal setup
-    $password = trim(fgets(STDIN));
+    $password = rtrim(fgets(STDIN) ?: '', "\r\n");
 
-    if (strlen($password) < 6) {
-        error("Password harus minimal 6 karakter.");
+    if (!\App\Services\PasswordPolicy::valid($password)) {
+        error("Password harus minimal 12 karakter Unicode, maksimal 72 byte, tanpa karakter NUL.");
         exit(1);
     }
 
