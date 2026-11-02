@@ -7,11 +7,18 @@
     <?php
     $metaTitle = $title ?? 'Muhamad Ikhsan Hidayat | Fullstack Developer Portfolio';
     $metaDescription = $settings['meta_description'] ?? 'Portofolio Muhamad Ikhsan Hidayat, Fullstack Developer lulusan D3 Manajemen Informatika yang berpengalaman membangun aplikasi web dengan Laravel, PHP, dan MySQL.';
+    $canonicalUrl = $canonical_url ?? null;
     ?>
     <title><?= e($metaTitle) ?></title>
     <meta name="description" content="<?= e($metaDescription) ?>">
+    <?php if ($canonicalUrl): ?>
+    <link rel="canonical" href="<?= e($canonicalUrl) ?>">
+    <?php endif; ?>
     <meta property="og:title" content="<?= e($metaTitle) ?>">
     <meta property="og:description" content="<?= e($metaDescription) ?>">
+    <?php if ($canonicalUrl): ?>
+    <meta property="og:url" content="<?= e($canonicalUrl) ?>">
+    <?php endif; ?>
     <meta name="twitter:title" content="<?= e($metaTitle) ?>">
     <meta name="twitter:description" content="<?= e($metaDescription) ?>">
     

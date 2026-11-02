@@ -87,16 +87,17 @@ class HomeController extends BaseController
 
             // Render view
             $this->render('public/home', [
-                'title'        => $settings['meta_title'] ?? 'Muhamad Ikhsan Hidayat | Fullstack Developer Portfolio',
-                'profile'      => $profile,
-                'cv'           => $cv,
-                'skills'       => $skills,
-                'educations'   => $educations,
-                'experiences'  => $experiences,
-                'categories'   => $categories,
-                'technologies' => $technologies,
-                'projects'     => $projects,
-                'settings'     => $settings,
+                'title'          => $settings['meta_title'] ?? 'Muhamad Ikhsan Hidayat | Fullstack Developer Portfolio',
+                'canonical_url'  => route('/'),
+                'profile'        => $profile,
+                'cv'             => $cv,
+                'skills'         => $skills,
+                'educations'     => $educations,
+                'experiences'    => $experiences,
+                'categories'     => $categories,
+                'technologies'   => $technologies,
+                'projects'       => $projects,
+                'settings'       => $settings,
             ]);
 
         } catch (Exception $e) {
@@ -165,12 +166,13 @@ class HomeController extends BaseController
             $profile = $profileStmt->fetch();
 
             $this->render('public/project_detail', [
-                'title'        => $project['title'] . ' | Detail Proyek',
-                'profile'      => $profile,
-                'project'      => $project,
-                'technologies' => $projectTechnologies,
-                'mediaItems'   => $projectMedia,
-                'settings'     => $settings,
+                'title'          => $project['title'] . ' | Detail Proyek',
+                'canonical_url'  => route('/project/' . $project['slug']),
+                'profile'        => $profile,
+                'project'        => $project,
+                'technologies'   => $projectTechnologies,
+                'mediaItems'     => $projectMedia,
+                'settings'       => $settings,
             ]);
 
         } catch (Exception $e) {
@@ -336,7 +338,7 @@ class HomeController extends BaseController
             ");
             $projects = $stmt->fetchAll();
 
-            $baseUrl = 'http://' . ($_SERVER['HTTP_HOST'] ?? 'localhost:8000');
+            $baseUrl = rtrim(route('/'), '/');
 
             header("Content-Type: text/xml; charset=utf-8");
             
